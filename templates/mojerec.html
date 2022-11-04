@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<br><br>
+<div id="brak-receptur">
+
+</div>
+<div class="cards-rec-container">
+  {% for i in receptury %}
+  <div class="cont">
+      <a href="{% url 'receptura' i.id %}">
+        <div class="card-header">
+        {{ i.nazwa }}
+        <br>
+        data: {{ i.date|date:"d-m-Y" }} godz.{{ i.date|date:"h.m" }}
+
+        <div class='pk-class' id="pk-box" title="{{ i.pk }}" >
+
+        </div>
+<!--      <br>-->
+<!--          owner: {{i.owner}}-->
+<!--      <br>-->
+      </div>
+          <div id="{{i.pk}}-skladniki" class="card-sklad-rec"> </div>
+
+      </a>
+
+
+      <div type="button" class="card-footer" data-bs-toggle="modal" data-bs-target="#exampleModal-{{i.pk}}">
+        Usuń tę recepturę
+      </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal-{{i.pk}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Usuwanie receptury </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Czy na pewno chcesz usunąć tę recepturę?
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="location.href='{% url 'usunRec' i.id %}'" >Usuń</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+    {% empty %}
+    <h1>Na razie brak receptur</h1>
+{% endfor %}
+</div>
+<script src="{% static 'spisrec.js' %}"> </script>
+{% endblock %}
+<div id="tabela-moje-rec">
+
+</div>
+</body>
+</html>

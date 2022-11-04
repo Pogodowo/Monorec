@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row" >
+            <div class="col">
+                <div id='parametry' class="red mt-5"></div>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col">
+        <p id="p">
+         <!--    <button type="submit" class="btn btn-secondary mt-1 " id="wybiezSkladnikButton" > Wybierz składnik z listy</button>-->
+            <!--    <a class="dropdown-menu" aria-labelledby="navbarDropdown" id="wybor-skl-dropdown"> </a>-->
+            <div class="nav-item dropdown">
+          <a class=" btn btn-secondary mt-1 " href="#" id="wybor-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Wybierz składnik z listy  </a>
+          <nav class="dropdown-menu" aria-labelledby="navbarDropdown" id="wybor-skl-dropdown"> </nav>
+<!--          <<ul class="dropdown-menu" id="lista-dropdown" aria-labelledby="navbarDropdown">-->
+
+<!--          </ul>-->
+        </div>
+        </p>
+            <span>lub</span>
+        <form autocomplete="off" class="mt-5" id="dodaj-skladnk-form">
+          <div class="autocomplete" style="width:250px;">
+            <input id="myInput" type="text" name="myCountry" placeholder="Tu wpisz nazwę składnika" class="custom-input">
+          </div>
+        </form>
+        <button type="submit" class="btn btn-secondary mt-1 " id="submitButton" > Dodaj składnik</button>
+
+         <div id="tabela-docelowa" class="mt-5"></div>
+               <br><br>
+        <button class="btn btn-primary" onclick="window.print();"> do Wydruku</button>
+        <a class="btn btn-primary" id="toPdfButton" href="{% url 'to_pdf:to_pdf' receptura.pk %}"> do Pdf</a>
+            </div>
+
+        <div class="col">
+            <div id='cards' class="red mt-5">siemka</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+
+        </div>
+
+
+
+
+    </div>
+</div>
+
+
+
+<!--modal-->
+<div id="modalskladnik">
+
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalTitle">Modal title</h5>
+        <button type="button" class="close" id='close-x-button' data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body form-body-add">
+<!--        place for form-->
+          <form id="modal-form" method="POST" class="form-modal">
+              {% csrf_token %}
+
+              <br>
+          </form>
+      </div>
+      <div class="modal-footer">
+          <button type="submit" id="zapiszzmianybutton"  class="btn btn-primary">Zapisz</button>
+        <button type="submit" id="edytujjsklbutton"  class="btn btn-primary">Edytuj składnik</button>
+        <button type="submit" id="dodajsklbutton"  class="btn btn-primary">Dodaj składnik</button>
+        <button type="button" id='close-button' class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="zaDuzoSkladnikowModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="zaDuzoSkladnikowLabel">Przekroczona ilośc składników</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Maksymalna ilośc składników wynosi 10.
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="location.href='{% url 'home' %}'" >Przejdź do spisu twoich receptur</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ModalEnd -->
+
+<!-- Modal -->
+<div class="modal fade" id="oblEtModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" id="id-modal-et-content">
+      <div class="modal-header">
+         Obliczenia Etanolu
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body" id="ol-et-text" style="width:0; float:left;" >
+
+      </div>
+      <div class="modal-footer">
+        <!--<button class="btn btn-primary" onclick="window.print();" >Drukuj</button>-->
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ModalEnd -->
+
+<!-- Modal -->
+<div class="modal fade" id="oblOlModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" id="id-modal-content">
+      <div class="modal-header">
+        Obliczenia Oleum Cacao
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body obl-ol-class" id="ol-obl-text">
+        Obliczenia Oleum Cacao
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary"  onclick="functionPrint()" data-dismiss="modal">Drukuj</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ModalEnd -->
+
+<div id="pk-box" style=" display: none;">{{receptura.pk}}</div>
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+{% endblock  %}

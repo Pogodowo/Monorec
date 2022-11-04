@@ -1,0 +1,59 @@
+
+.column-dropdown{
+  columns: 3;
+}
+
+.drop-ingridient-item{
+
+font-size: 9px;
+}
+
+.main{
+font-size: 25px;
+padding: 15px;
+font-family: sans-serif;
+background-color:#c8e0d4;
+border-radius: 30px;
+
+}
+.my-pre{
+font-size: 25px;
+padding: 15px;
+font-family: sans-serif;
+background-color:#c8e0d4;
+border-radius: 30px;
+
+}
+
+.form-body-add{
+background: #adbfa4;
+max-width: 500px;
+width: 100%;
+margin: 15px auto;
+padding: 20px;
+box-shadow : 1px 1px 1px rgba(0,0,0,0.125);
+line-heigth: 1;
+}
+
+.form-body-add label{
+margin-right: 10px;
+padding: 5px;
+
+}
+
+.form-body-add .form-modal .input-field label{
+
+width: 200px
+
+}
+
+.form-body-add .form-modal .elFormDelete label{
+
+width: 200px
+
+}
+
+select{
+padding: 5px;
+}
+
