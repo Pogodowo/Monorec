@@ -139,11 +139,19 @@
         Obliczenia Oleum Cacao
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+        <table id="dane" style="width: 100%;" >
+            <tr>
+    <th style="width: 20%;" >Składnik</th>
+    <th style="width: 15%;" >masa składnika (g)</th>
+    <th style="width: 20%;" >współczynnik wyparcia</th>
+    <th style="width: 40%;" ></th>
+  </tr>
+            </table>
       <div class="modal-body obl-ol-class" id="ol-obl-text">
         Obliczenia Oleum Cacao
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary"  onclick="functionPrint()" data-dismiss="modal">Drukuj</button>
+<!--        <button class="btn btn-primary"  onclick="functionPrint()" data-dismiss="modal">Drukuj</button>-->
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
@@ -160,3 +168,7 @@
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 {% endblock  %}
+
+{% block js_files %}
+<script src="{% static 'myjs.js' %}"> </script>
+{% endblock %}

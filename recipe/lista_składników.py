@@ -35,5 +35,6 @@ data={'Witamina A':[['jednostka_z_recepty','gramy_roztworu','krople','jednostki'
       'Papaweryna':['ilosc_na_recepcie','aa'],
       'Mentol':['ilosc_na_recepcie','aa'],
       'Laktoza':['ilosc_na_recepcie','aa'],
-      'Kwas Salicylowy':['ilosc_na_recepcie','aa']
+      'Kwas Salicylowy':['ilosc_na_recepcie','aa'],
+      'Kwas Borowy':['ilosc_na_recepcie','aa']
       }

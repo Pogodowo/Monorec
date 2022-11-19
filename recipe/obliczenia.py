@@ -8,8 +8,7 @@ def Przeliczanie_etanolu(skladnik,pk,gramy):
         pozadane_stezenie=tabela_etanolowa[obiekt.pozadane_stezenie]
         uzyte_stezenie=tabela_etanolowa[obiekt.uzyte_stezenie]
         ilosc_etanolu_z_rec=gramy
-        print("ilosc_etanolu_z_rec",ilosc_etanolu_z_rec)
-        sys.stdout.flush()
+
         if ilosc_etanolu_z_rec!='':
             if float(pozadane_stezenie)<float(uzyte_stezenie):
                 czysty_etanol=(float(pozadane_stezenie)/100)*float(ilosc_etanolu_z_rec)
@@ -18,7 +17,7 @@ def Przeliczanie_etanolu(skladnik,pk,gramy):
                 ret["ilosc_etanolu"]=str(round(ilosc_etanolu,2))
                 ret["ilosc_wody_do_etanolu"] = str(round(ilosc_wody,2))
             else:
-                ret["ilosc_etanolu"] = 'dupa'
+                ret["ilosc_etanolu"] = 'to_little'
                 ret["ilosc_wody_do_etanolu"] = str(0)
     else:
         ret["ilosc_etanolu"] = ''
@@ -30,7 +29,7 @@ def Przeliczanie_etanolu(skladnik,pk,gramy):
 
 
 def Sumowanie_wody(sklId,gramy_po_podziale):
-    print('gramy_po_podziale w funkcji suującej wodę',gramy_po_podziale)
+   
     sys.stdout.flush()
     all = Skladnik.objects.filter(receptura_id=int(sklId))
     woda = None

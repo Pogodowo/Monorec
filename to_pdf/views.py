@@ -24,7 +24,7 @@ def to_pdf(request,pk):
     receptura = Receptura.objects.get(id=int(pk))
 
     Skladniki = Skladnik.objects.filter(receptura_id=int(pk)).order_by("pk")
-    do_tabeli=[['nazawa: '+ receptura.nazwa,receptura.date.strftime(" data utworzenia: %d-%m-%y godz: %H:%M") ],]
+    do_tabeli=[[''+ receptura.nazwa,receptura.date.strftime(" data utworzenia: %d-%m-%y godz: %H:%M") ],]
     rodzaj=''
     ilosc_czop_glob=''
     masa_czop_glob = ''
@@ -93,10 +93,10 @@ def to_pdf(request,pk):
     table1.drawOn(p, x, y)
     #===========================recepta================================================================================
     x=30
-    y=600
+    y=650
     p.setFont('polishFont', 13)
     p.drawString(x, y, 'Rp.')
-    y=580
+    y=630
     def skladnik(skl):
         stri=''
         if skl.show==True:
@@ -117,12 +117,14 @@ def to_pdf(request,pk):
                 stri+=' j.m.'
         return stri
     for i in Skladniki:
-        p.drawString(x, y, skladnik(i))
-        y=y-15
+        if i.show==True:
+            p.drawString(x, y, skladnik(i))
+            y=y-15
     x=300
-    y=600
+    y=650
     count=1
     for i in Skladniki:
+
         p.setFont('AbhayaLibre-Regular', 13)
         p.drawString(x, y, str(count)+')  '+i.skladnik)
         p.line(x+250,y-5,x,y-5)
@@ -142,7 +144,7 @@ def to_pdf(request,pk):
             p.drawString(x, y, 'wspóczynnik wyparcia: ' + str(wspolczynniki_wyparcia[i.skladnik]) )
             y = y - 1
         p.setLineWidth(0.25)
-        p.line(x + 250, y - 5, x, y - 5)
+        p.line(x + 250, y - 2, x, y - 2)
         y=y-15
         p.drawString(x, y, 'obliczenia:')
         y=y-10
@@ -150,15 +152,30 @@ def to_pdf(request,pk):
         for j in range(len(dane[i.skladnik])):
             parametr=dane[i.skladnik][j]
             if parametr in table_dict:
-                p.drawString(x, y, table_dict[parametr]+' : '+getattr(i, parametr ))
+                param_string=table_dict[parametr]+' : '+getattr(i, parametr )
+                if len(param_string)<56:
+                    p.drawString(x, y, param_string)
+                else:
+                    p.drawString(x, y, param_string[:50]+'-')
+                    y=y-10
+                    p.drawString(x, y, param_string[50:])
             else:
-                p.drawString(x, y, parametr + ' : ' + getattr(i, parametr))
+                param_string = parametr + ' : ' + getattr(i, parametr)
+                if len(param_string) < 56:
+                    p.drawString(x, y, param_string)
+                else:
+                    p.drawString(x, y, param_string[:50]+'-')
+                    y = y - 10
+                    p.drawString(x, y, param_string[50:])
             y=y-10
 
 
 
         p.setLineWidth(1)
-        y=y-25
+        y=y-15
+        if  y<50:
+            p.showPage()
+            y=800
 
     p.showPage()
     p.save()

@@ -13,36 +13,44 @@
             Aplikacja ma na celu ułatwienie określania ilości poszczególnych składników do wykonania leku.
         Główny nacisk został tutaj położony na najczęściej spotykane obliczenia etanolowe,witamin jak również masła kakaowego.
         Aplikacja ma charakter amatorski, wszystkie kalkulacje należy potwierdzić standardowymi obliczeniami.
-        W aplikacji można założyć konto,co umożliwi posiadanie kolekcji maksymalnie 20 receptur.
-        Ze strony mogą też korzystać niezalogowani użytkownicy,jednakże w tym przypadku można posiadać tylko jedną bieżącą recepturę.
         Zapraszam do pracy z e-receptura.
         </p></div>
         <div class="col-6 my-col" align="left">
+            <img id='waga' src="{% static 'waga.png' %}"/>
+<!--            <pre class="my-pre">-->
+<!--                Kliknij poniżej aby dodać nową recepturę.-->
+<!--                Pamiętaj ,że dodając nową recepturę nadpisujesz poprzednią.-->
+<!--                -->
+<!--            <a class="btn btn-primary btn-xl" data-target="#dodajRecModal" href="#dodajRecModal" onclick="openModal()" role="button"> Rozpocznij nową recepturę.  </a>-->
+<!--              Kliknij poniżej aby wrócić do swojej ostatniej  receptury.-->
+<!--            <a class="btn btn-primary btn-xl" href="{% url 'aktualnaRec' %}" role="button"> Wróć do swojej receptury. </a>-->
+<!--            </pre>-->
 
-            {% if user.is_authenticated %}
-            <pre class="my-pre">
-                Kliknij poniżej aby dodać nową recepturę.
-                Jednorazowo możesz posiadać kolekcję do 20 receptur.
-            <a class="btn btn-primary btn-xl" href="{% url 'home' %}" role="button"> Rozpocznij nową recepturę.  </a>
-
-                kliknij poniżej aby przeglądać swoje receptury.
-            <a class="btn btn-primary btn-xl" href="{% url 'home' %}" role="button">Przeglądaj swoje receptury. </a>
-                </pre>
-            {% else %}
-
-            <pre class="my-pre">
-                Kliknij poniżej aby dodać nową recepturę.
-                Pamiętaj ,że dodając nową recepturę nadpisujesz poprzednią.
-                Aby posiadać kolekcję wielu receptur musisz się zarejestrować/zalogować.
-            <a class="btn btn-primary btn-xl" href="{% url 'dodajrec' %}" role="button"> Rozpocznij nową recepturę.  </a>
-              Kliknij poniżej aby wrócić do swojej ostatniej  receptury.
-            <a class="btn btn-primary btn-xl" href="{% url 'home' %}" role="button"> Wróć do swojej receptury. </a>
-            </pre>
-            {% endif %}
         </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row my-row">
+        <div class="col-6 my-col" align="left">
+
+           <a class="btn btn-primary btn-xl" data-target="#dodajRecModal" href="#dodajRecModal" onclick="openModal()" role="button">  Rozpocznij nową recepturę.  </a>
+             </div>
+            <div class="col-6 my-col" align="left">
+            <a class="btn btn-primary btn-xl" href="{% url 'aktualnaRec' %}" role="button"> Wróć do swojej receptury. </a>
+            </div>
+
+
     </div>
 
 </div>
+<script>
+    function openModal() {
+        $("#dodajRecModal").modal('show')
+    }
+</script>
+
 {% endblock content %}
 
 

@@ -36,7 +36,7 @@ const wyborSkladnikowDrop=document.getElementById("wybor-skl-dropdown" )
 
 updateTable()
 
-var ingridients=['3% roztwór kwas borowy', 'Anestezyna', 'Balsam Peruwiański', 'Bizmutu azotan zasadowy', 'Bizmutu węglan zasadowy', 'Detreomycyna', 'Efedryna', 'Erytromycna', 'Etanol', 'Euceryna', 'Gliceryna 86%', 'Hascobaza', 'Hydrokortyzon', 'Ichtiol', 'Kwas Salicylowy', 'Laktoza', 'Lanolina', 'Maść Cholesterolowa', 'Mentol', 'Metronidazol', 'Mocznik', 'Neomycyna', 'Nystatyna', 'Olej Rycynowy', 'Oleum Cacao', 'Oleum Menthae piperitae', 'Papaweryna', 'Prokaina', 'Rezorcyna', 'Tlenek Cynku', 'Wazelina biała', 'Wazelina żółta', 'Witamina A', 'Witamina E', 'Woda destylowana']
+var ingridients=['3% roztwór kwas borowy', 'Anestezyna', 'Balsam Peruwiański', 'Bizmutu azotan zasadowy', 'Bizmutu węglan zasadowy', 'Detreomycyna', 'Efedryna', 'Erytromycna', 'Etanol', 'Euceryna', 'Gliceryna 86%', 'Hascobaza', 'Hydrokortyzon', 'Ichtiol', 'Kwas Borowy','Kwas Salicylowy', 'Laktoza', 'Lanolina', 'Maść Cholesterolowa', 'Mentol', 'Metronidazol', 'Mocznik', 'Neomycyna', 'Nystatyna', 'Olej Rycynowy', 'Oleum Cacao', 'Oleum Menthae piperitae', 'Papaweryna', 'Prokaina', 'Rezorcyna', 'Tlenek Cynku', 'Wazelina biała', 'Wazelina żółta', 'Witamina A', 'Witamina E', 'Woda destylowana']
 /////////////////js do autouzupełniania////////////////////////////////////////////////////////////
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
@@ -158,13 +158,13 @@ function usuwanieSkladnika (pk){
         $.ajax({
                         type: 'GET',
                         url: `delSkl/${ pk }/`,
-                        success : function(response){console.log('sukces ajaxa z del');
+                        success : function(response){console.log('sukces');
                         cardBox.innerHTML=''
                         tabelaDocelowa.innerHTML='';
                         updateTable()
 
                         },//koniec sukcesa
-                        error : function (error){console.log('brak sukcesu ajaxa z del')},
+                        error : function (error){console.log('error')},
                         })
 
 }
@@ -289,7 +289,6 @@ function generowanieFormularza (){
 function dodawanieSkl(){
 
             skl=inputBox.value;
-            console.log('sklId',sklId)
             $.ajax({
             type: 'GET',
             url: `formJson/${skl}&${sklId}/`,
@@ -310,17 +309,15 @@ function dodawanieSkl(){
                 url:`dodajskl/${sklId}/`,
                 data : dataf,
                 success: function(response){
-                         console.log('wygrywamy');
-                         console.log('response.tabela',response.tabela)
                          if (response.tabela['za_duzo_skladnikow']!=null && response.tabela['za_duzo_skladnikow']=='za_duzo_skladnikow')
-                         {console.log('za dużo składników');
+                         {
                          $("#zaDuzoSkladnikowModal").modal('show');
                          }
                          tabelaDocelowa.innerHTML=''
                          updateTable()
                                         },
                 error : function(error){
-                         console.log(' dupa nie działa');
+                         console.log('error');
                                                     }
                  });
                  /////koniec ajaxa
@@ -355,7 +352,7 @@ function updateTable(){
             param=elementyTabeli.parametry.fields
             slownik=elementyTabeli.slownik
             wspolczynniki_wyparcia=elementyTabeli.wspolczynniki_wyparcia
-            console.log(wspolczynniki_wyparcia)
+
             if(elementyTabeli.objects!=null){
             elementyTabeli=elementyTabeli.objects.sort((a, b) => a.pk- b.pk);
             //elementyTabeli=elementyTabeli.sort((a, b) => a.pk- b.pk);//to dodałem
@@ -364,7 +361,7 @@ function updateTable(){
 //            elementyTabeli=elementyTabeli.sort((a, b) => a.pk- b.pk)//to dodałem
             alerty=response.tabela_zbiorcza.alerty
             display=response.tabela_zbiorcza.wyswietlane_dane
-            console.log('display',display)
+
             //elementyTabeli.sort((a, b) => a.elementyTabeli.pk > b.elementyTabeli.pk)
             ////////////////test/////////////////////////////
             card=document.createElement('div')
@@ -608,14 +605,13 @@ const dodanyId=0
 /////////////////edycja danych składnika//////////////////////////
 ////////////////tworzenie formularza z danymi do edycji///////////////
 function generowanieFormularzaDoEdycji (item,pk){
-         console.log('item',item)
+
           //skl = item || inputBox.value;
 //          if(item){skl=item}else{
 //          skl=inputBox.value}
           if (item!='[object MouseEvent]'){skl=item}else{skl=inputBox.value}
 //          skl=item || inputBox.value
-          console.log('inputBox.value',inputBox.value)
-          console.log('item',item)
+
 
           removeElementsByClass('elFormDelete')
           const div=document.createElement('div')
@@ -634,7 +630,7 @@ function generowanieFormularzaDoEdycji (item,pk){
 
 
 
-          console.log('skladnikform',inputBox.value);
+
           modalTytul.innerText=skl;
            $("#exampleModal").modal('show');
            ////////////////ajax pobieranie elementów formularza///////////////////////////////
@@ -643,14 +639,14 @@ function generowanieFormularzaDoEdycji (item,pk){
             type: 'GET',
             url: `editFormJson/${pk}/`,
             success : function(response){
-            console.log('succes spobrania do forma', response);
+
             var elementyForm = response.datadict.form
             var dict=response.slownik
-           console.log('elementyForm z gen form',elementyForm)
+
 
             elementyForm.map(item=>{
             if(Array.isArray(item)){
-                console.log('mamy tabelę');
+
                 const div=document.createElement('div')
                 div.setAttribute('class', 'elFormDelete input-field-form')
                 const label=document.createElement('label')
@@ -659,7 +655,7 @@ function generowanieFormularzaDoEdycji (item,pk){
                 const select=document.createElement('select');
                 select.setAttribute('class',"ui dropdown");
 
-                console.log('response.datadict.values[item[0]]',response.datadict.values[item[0]])
+
                 //select.setAttribute('id',"optionId");
                 select.setAttribute('class','elFormDelete')
                 select.setAttribute('id',`${skl}-${item[0]}`)
@@ -671,7 +667,7 @@ function generowanieFormularzaDoEdycji (item,pk){
                 //const optionBox= document.getElementById('optionId')
                 const optionBox= document.getElementById(`${skl}-${item[0]}`)
                 const slicedArray=item.slice(1)
-                console.log(item[0])
+
                 slicedArray.map(elem=>{
                 const option=document.createElement('option')
                 option.textContent = elem
@@ -691,30 +687,24 @@ function generowanieFormularzaDoEdycji (item,pk){
             check.setAttribute('value','on')}else{
             check.setAttribute('value','off')}
             check.setAttribute('id',`${skl}-${item}`)
-            console.log('idwimpucie',`${skl}-${item}`)
+
             if (['aa','aa_ad','ad','qs'].includes(item)){check.setAttribute('name','check');
             check.setAttribute('onclick',"onlyOne(this)")}
             check.setAttribute('class','elFormDelete check-box')
-
             label.setAttribute('class','elFormDelete')
-            //check.setAttribute('class','checkBox')
-            //check.setAttribute('name','checkBox')
             formBox.appendChild(label)
             formBox.appendChild(check)
-            console.log('checkvalue',check.value)
             } else
             {
 
             const label=document.createElement('label')
             const input=document.createElement('input')
-
             input.setAttribute('class','elFormDelete')
             label.setAttribute('class','elFormDelete')
             input.setAttribute('id',`${skl}-${item}`)
             input.setAttribute('type','number')
             input.setAttribute("min","0")
             input.setAttribute('max',"99999")
-            console.log('idwimpucie',`${skl}-${item}`)
             const br=document.createElement('br')
             br.setAttribute('class','elFormDelete')
             label.textContent=dict[item]
@@ -743,14 +733,12 @@ function generowanieFormularzaDoEdycji (item,pk){
 
 function edytowanieSkl(pk){
             var skladnik=modalTytul.innerText
-            console.log('skladnik',skladnik)
             //skl=inputBox.value || skladnik;
             skl=skladnik
             $.ajax({
             type: 'GET',
             url: `editFormJson/${pk}/`,
             success : function(response){
-            console.log('succes spobrania do forma', response);
             var elementyForm = response.datadict
             var dict=response.table_dict
                 const checkButtons = document.getElementsByClassName('check-box')
@@ -759,13 +747,12 @@ function edytowanieSkl(pk){
                 ///tworzenie daty formulara i odpowiedzi do ajaxa////////////////////
                 dataf={'csrfmiddlewaretoken': csrft[0].value,'skladnik':skl,'receptura_id':sklId}
                 elementyForm=elementyForm.form
-                for ( var i in elementyForm )if ( Array.isArray(elementyForm[i])){ console.log('na razie nie umiem tabeli',
-                `${skl}-${elementyForm[i][0]}`);
+                for ( var i in elementyForm )if ( Array.isArray(elementyForm[i])){
                 dataf[elementyForm[i][0]]=document.getElementById(`${skl}-${elementyForm[i][0]}`).value}
                 else
-                {console.log('i',i,`${skl}-${elementyForm[i]}`);
+                {
                 dataf[elementyForm[i]]=document.getElementById(`${skl}-${elementyForm[i]}`).value}
-                console.log('dataf, które mnie teraz interesuje',dataf)
+
                 if (dataf['skladnik']=="Oleum Cacao" && dataf['qs']=='on'){dataf['ilosc_na_recepcie']=''}
 
                 $.ajax({
@@ -774,19 +761,17 @@ function edytowanieSkl(pk){
                 data : dataf,
                 success: function(response){
                          console.log('wygrywamy');
-                         console.log('response.tabela',response.tabela);
+
                          tabelaDocelowa.innerHTML='';
                          updateTable();
                                         },
                 error : function(error){
-                         console.log(' dupa nie działa');
+                         console.log('nie działa');
                                                     }
                  });
                  /////koniec ajaxa
                  removeElementsByClass('elFormDelete');
                  $("#exampleModal").modal('hide');
-
-
                  },
             error : function (response){
             console.log('error')}
@@ -799,10 +784,21 @@ function oblOlCacao(){ $.ajax({
             type: 'GET',
             url:`obliczeniaOlCac/${sklId}/`,
             success : function(response){
-            console.log('działa obl cacao')
+            const daneSkladnikow =document.getElementById('dane')
             const oblOlText=document.getElementById( "ol-obl-text")
-            oblOlText.innerHTML=response.tabela
-
+            removeElementsByClass('elFormDelete');
+            response.dane.map(item=> {
+               const tr=document.createElement('tr');
+               item.map(item2=>{
+               const td=document.createElement('td');
+               td.innerText=item2
+               td.setAttribute('class','elFormDelete')
+               tr.appendChild(td)
+               })
+               tr.setAttribute('class','elFormDelete oblOlSkladniki')
+                daneSkladnikow.appendChild(tr)
+            })
+            oblOlText.innerHTML=response.obliczenia
             },
             error : function(response){},
             })
@@ -811,7 +807,7 @@ function oblEt(){ $.ajax({
             type: 'GET',
             url:`obliczeniaEt/${sklId}/`,
             success : function(response){
-            console.log('działa et')
+
             const oblEtText=document.getElementById( "ol-et-text")
 
             oblEtText.innerHTML=''
@@ -847,21 +843,20 @@ autocompleteButton.addEventListener( 'click',generowanieFormularza );
 dodajSkladnikButton.addEventListener('click',dodawanieSkl );
 edytujSkladnikButton.addEventListener('click',generowanieFormularzaDoEdycji)
 
-zapiszZmianyButton.addEventListener('click',e=>{console.log('kliknąłem zapisz zmiany');edytowanieSkl(zapiszZmianyButton.value)})
+zapiszZmianyButton.addEventListener('click',e=>{edytowanieSkl(zapiszZmianyButton.value)})
 closeButton.addEventListener('click',e=>{$("#exampleModal").modal('hide');
                                            removeElementsByClass('elFormDelete'); })
-closeXMyjsButton.addEventListener('click',e=>{console.log('kliknąłem x close ');$("#exampleModal").modal('hide');
+closeXMyjsButton.addEventListener('click',e=>{$("#exampleModal").modal('hide');
                                            removeElementsByClass('elFormDelete'); })
 
-//const oblOlButton=document.getElementById('button-obl-ol');
-//oblOlButton.addEventListener('click', $("#oblOlModal").modal('show'));
+
 
 
 
 
 modalBox.addEventListener('hidden.bs.modal', function (event) {
     removeElementsByClass('elFormDelete');
-    console.log('zamknąłem modal')
+
 });
 
 
