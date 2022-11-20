@@ -1,1 +1,1 @@
-web: gunicorn 'monorec.wsgi'
+web: gunicorn monorec.wsgi
