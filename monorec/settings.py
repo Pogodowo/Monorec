@@ -28,7 +28,7 @@ SECRET_KEY = str(os.environ.get('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG  =  str(os.environ.get('DEBUG'))
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://*.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://*.railway.app','https://twoja-receptura.pl']
 
 
 # Application definition

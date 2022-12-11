@@ -203,7 +203,7 @@ border-radius:0px;
 border-style: double;
 
 }
-.flex-item-param{
+.flex-item-param{ /* stylizacja nagłówka receptury (tam gdzie data)*/
 background: #d1c3ae;
 margin:5px;
 color: black;
@@ -218,157 +218,26 @@ float:center;
 
 }
 
-.paramcard-css{
 
-}
 
-.button-card{
+.button-card{/* pozycjonuje przycisku  w karce składnika po prawej stronie receptury(usuń,edytuj)*/
 float: right;
 margin: 2px;
 }
 
-.cards-rec-container {
-    margin: 0 auto;
-    max-width: 1200px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
-    grid-auto-rows: auto;
-    gap: 20px;
-    font-family: sans-serif;
-    padding-top: 30px;
-}
 
-.cards * {
-    box-sizing: border-box;
-    border-radius: 20px;
-}
-
-
-
-.cont{
-  border: 2px solid #333333;
-  border-radius: 25px;
-  overflow: hidden;
-  text-align: center;
-  background: #03e8fc;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 900;
-}
-
-
-.card-header {
-
-
-
-}
-
-.card-sklad-rec {
-    line-height: 1.5;
-    height: 180px;
-    font-size: 0.9em;
-    overflow-y: scroll;
-    text-align: left;
-    scrollbar-width: thin;
-    scrollbar-color: #eb5234 #d8ede5;
-    padding: 15px;
-    background: #fafafa;
-
-}
-
-
-
-
-.card-footer {
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #555555;
-    background: #bbdaf2;
-    font-size: 1.2em;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-
-
-
-}
-
-
-.form-body-add{
-background: #adbfa4;
-max-width: 500px;
-width: 100%;
-margin: 15px auto;
-padding: 20px;
-box-shadow : 1px 1px 1px rgba(0,0,0,0.125);
-line-heigth: 1;
-}
-
-.check-box-label{
-padding: 0;
-margin-right: 1px;
-}
-
-.check-box{
+.check-box{/* pozycjonuje label wzgędem checkbox w formularzu tworzącym recepturę*/
 margin-right: 10px;
 margin-left: 1px;
 }
 
-.form-body-add label{
-margin-right: 1px;
-padding: 5px;
 
-}
 
-.form-body-add select{
+.form-body-add select{ /* koloruje pole select  w formularzu tworzącym recepturę*/
 background-color: #e4ede4;
 }
 
 
-
-
-my-container{
-left: 0 ;
-}
-.main-container{
-left: 0 ;
-}
-
-my-row{
-margin-left: 10px  !important ;
-}
-
-
-
-/*.my-pre{
-margin-bottom: 2px;
-margin-top: 5px;
-text-align: left;
-}*/
-
-pre {
-    text-align: left;
-    white-space: pre-line;
-    margin-bottom: 3px;
-    margin-top: 10px;
-    font-family: sans-serif;
-    line-height: 1.25;
-  }
-
-/*nav ul li ul{
-display:inline-block;
-margin: 0;
-padding: 0;
-font: 25px;
-}*/
-
-/*nav ul li div {
-position: absolute;
-left: -9999px;
-width:700px;
-height:150px;
-}*/
 .dropdown-item{
 font-size: 18px;}
 

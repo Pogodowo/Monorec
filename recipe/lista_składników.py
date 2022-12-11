@@ -29,7 +29,7 @@ data={'Witamina A':[['jednostka_z_recepty','gramy_roztworu','krople','jednostki'
       'Hascobaza':['ilosc_na_recepcie','aa','aa_ad','ad'],
       "Neomycyna":['ilosc_na_recepcie','aa'],
       'Efedryna':['ilosc_na_recepcie','aa'],
-      'Erytromycna':['ilosc_na_recepcie','aa'],
+      'Erytromycyna':['ilosc_na_recepcie','aa'],
       'Tlenek Cynku':['ilosc_na_recepcie','aa'],
       'Olej Rycynowy':['ilosc_na_recepcie','aa'],
       'Papaweryna':['ilosc_na_recepcie','aa'],

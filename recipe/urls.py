@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
 
     path('', views.home,name='home'),
-    path('dodajrec',views.dodajRec,name='dodajrec'),
+
     path('receptura/(<int:receptura_id>)',views.receptura,name='receptura'),
     path('receptura/formJson/<str:skl>/', views.formJson, name='formJson'),
     path('receptura/dodajskl/<str:sklId>/', views.dodajsklJson, name='dodajsklJson'),
@@ -17,8 +17,8 @@ urlpatterns = [
     path('receptura/dodajRecForm/', views.dodajRecForm, name='dodajRecForm'),
     path('dodawanieRecJson/', views.dodawanieRecJson, name='dodawanieRecJson'),
     path('receptura/dodawanieRecJson/', views.dodawanieRecJson, name='dodawanieRecJson'),
-    path('receptura/obliczeniaOlCac/<str:sklId>/', views.obliczeniaOlCac, name='obliczeniaOlCac'),
-    path('receptura/obliczeniaEt/<str:sklId>/', views.obliczeniaEt, name='obliczeniaEt'),
+    path('receptura/obliczeniaOlCacJson/<str:sklId>/', views.obliczeniaOlCacJson, name='obliczeniaOlCac'),
+    path('receptura/obliczeniaEtJson/<str:sklId>/', views.obliczeniaEtJson, name='obliczeniaEt'),
     path('aktualnaRec', views.aktualnaRec, name='aktualnaRec'),
 
 

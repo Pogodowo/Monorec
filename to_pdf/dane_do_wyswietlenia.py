@@ -7,7 +7,7 @@ dane_do_wyswietlenia={'Witamina A':['gramy_roztworu','krople','jednostki','gesto
                 'Woda destylowana': ['ilosc_wody_do_etanolu', 'calkowita_ilosc_gramow_wody'],
                 'Mocznik':['gramy'],'Maść Cholesterolowa':['gramy'],'Balsam Peruwiański':['gramy'],'Ichtiol':['gramy'],'Bizmutu węglan zasadowy':['gramy'],
             'Bizmutu azotan zasadowy':['gramy'],'Prokaina':['gramy'],'Anestezyna':['gramy'],'Hascobaza':['gramy'],"Neomycyna":['gramy'],
-                'Efedryna':['gramy'],'Erytromycna':['gramy'],'Wazelina biała':['gramy'],'Tlenek Cynku':['gramy'],'Olej Rycynowy':['gramy'],
+                'Efedryna':['gramy'],'Erytromycyna':['gramy'],'Wazelina biała':['gramy'],'Tlenek Cynku':['gramy'],'Olej Rycynowy':['gramy'],
                       'Papaweryna':['gramy'],'Mentol':['gramy'],'Laktoza':['gramy'],'Kwas Salicylowy':['gramy'],
                 'Nystatyna':['gramy','jednostki'],'3% roztwór kwas borowy':['gramy','ilosc_kwasu_borowego_do_roztworu','woda_kwas_borowy'],
              'Euceryna':['gramy'],'Gliceryna 86%':['gramy'],'Detreomycyna':['gramy'],'Rezorcyna':['gramy'],"Witamina E":['gramy'],"Wazelina żółta":['gramy'],

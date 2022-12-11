@@ -1,5 +1,6 @@
 from .tabela_etanolowa import tabela_etanolowa
 from .models import Skladnik,Receptura
+from .wspolczynniki_wyparcia import wspolczynniki_wyparcia
 import sys
 def Przeliczanie_etanolu(skladnik,pk,gramy):
     ret={"ilosc_etanolu":0,"ilosc_wody_do_etanolu":0}
@@ -40,21 +41,11 @@ def Sumowanie_wody(sklId,gramy_po_podziale):
             jestwoda = True
             woda = i
 
-
     if jestwoda == True and woda != None :
         t1 = [woda.ilosc_wody_do_etanolu, woda.woda_mocznik, woda.woda_kwas_borowy]
-        woda.gramy=0
         if  woda.gramy!='' and woda.show==True:
-            a = 0
-            if float(gramy_po_podziale)>0:
-                woda.gramy=gramy_po_podziale
-            else:
-                if woda.ilosc_na_recepcie!='':
-                    woda.gramy = woda.ilosc_na_recepcie
-            if float(gramy_po_podziale)>0:
-                    woda.calkowita_ilosc_gramow_wody = str(float(woda.gramy)+ float(woda.ilosc_wody_do_etanolu) + float(woda.woda_mocznik) + float(woda.woda_kwas_borowy))
-                    woda.save()
-            woda.save()
+                woda.calkowita_ilosc_gramow_wody = str(float(woda.gramy)+ float(woda.ilosc_wody_do_etanolu) + float(woda.woda_mocznik) + float(woda.woda_kwas_borowy))
+                woda.save()
         else:
             a=0
             for i in t1:
@@ -140,3 +131,96 @@ def get_super(x):
     res = x.maketrans(''.join(normal), ''.join(super_s))
     return x.translate(res)
 
+
+
+def obliczeniaOlCacVisual(sklId):
+    skladniki = Skladnik.objects.filter(receptura_id=int(sklId))
+    receptura = Receptura.objects.get(id=int(sklId))
+    dane=[]
+    for i in skladniki:
+        if i.skladnik != 'Oleum Cacao':
+            dane.append([i.skladnik,i.gramy,str(wspolczynniki_wyparcia[i.skladnik])])
+    obl = '   Masa Oleum Cacao = ' + str(
+        float(receptura.ilosc_czop_glob) * float(receptura.masa_docelowa_czop_glob)) + ' - '
+
+    temp = 0
+    obl += '('
+    for i in skladniki:
+        if i.skladnik != 'Oleum Cacao':
+            obl = obl + i.gramy + 'g ' +  " x " + str(
+                wspolczynniki_wyparcia[i.skladnik]) + ' ' +  ' + '
+    obl = obl[:-3]
+    obl = obl + ') = ' + str(float(receptura.ilosc_czop_glob) * float(receptura.masa_docelowa_czop_glob)) + ' - '
+    obl = obl + '('
+    for i in skladniki:
+        if i.skladnik != 'Oleum Cacao':
+            temp = temp + round(float(i.gramy) * float(wspolczynniki_wyparcia[i.skladnik]), 3)
+
+            obl = obl + str(round(float(i.gramy) * float(wspolczynniki_wyparcia[i.skladnik]), 3)) +  ' + '
+    obl = obl[:-3]
+    obl = obl + ')'
+    obl = obl + ' = '
+
+    obl = obl + str(float(receptura.ilosc_czop_glob) * float(receptura.masa_docelowa_czop_glob)) + ' - ' + str(
+        round(temp, 3)) + ' = ' + str(
+        round(float(receptura.ilosc_czop_glob) * float(receptura.masa_docelowa_czop_glob) - temp, 3)) + 'g  '+'<br>'
+    for i in skladniki:
+        if i.skladnik == 'Oleum Cacao' and i.czy_powiekszyc_mase_oleum == 'off':
+            pass
+        elif i.skladnik == 'Oleum Cacao' and i.czy_powiekszyc_mase_oleum == 'on':
+            obl = obl + str(round(float(i.gramy) - float(
+                receptura.masa_docelowa_czop_glob),3)) + 'g + ' + receptura.masa_docelowa_czop_glob + 'g' + get_super(
+                '(masa dodatkowego czopka/globulki)') + '= ' + i.gramy + 'g'
+
+    return {'obliczenia': obl[3:],'dane':dane}
+
+
+def obliczeniaEtVisual(sklId):# Tworzy stringi z obliczeniami etanolowymi użytymi przy tworzeniy pdf
+    etanol = None
+    skladniki = Skladnik.objects.filter(receptura_id=int(sklId))
+    for i in skladniki:
+        if i.skladnik == 'Etanol':
+            etanol = i
+
+    receptura = Receptura.objects.get(id=int(sklId))
+    obl = ''
+    obl1 = ''
+
+    obl += 'Ilość potrzebnych gramów etanolu ' + etanol.pozadane_stezenie + '° t.j.' + \
+           tabela_etanolowa[etanol.pozadane_stezenie] + '% wynosi ' + etanol.gramy + 'g'
+    obl1 += 'Stężenie etanolu jakim dysponujeny wynosi ' + etanol.uzyte_stezenie + '° t.j. ' + \
+           tabela_etanolowa[etanol.uzyte_stezenie] + '% w ujęciu wagowym'
+
+
+    obl2 = ''
+    obl2 += 'ilość potrzebnego etanolu ' + tabela_etanolowa[etanol.uzyte_stezenie] + '% = '
+    licznik=''
+    licznik =   tabela_etanolowa[etanol.pozadane_stezenie] + '  * ' + etanol.gramy
+    mianownik=''
+    mianownik=  tabela_etanolowa[etanol.uzyte_stezenie]
+    wynik=''
+    wynik= ' = ' + etanol.ilosc_etanolu + 'g'
+    obl3=''
+    obl3 += 'Ilość potrzebnych gramów wody wynosi  ' + etanol.gramy + ' - ' + etanol.ilosc_etanolu + ' ='  + etanol.ilosc_wody_do_etanolu + ' g '
+    return {'obl': obl, 'obl1': obl1,'obl2':obl2,'licznik':licznik,'mianownik':mianownik,'wynik':wynik,'obl3':obl3}
+
+
+def obliczeniaOlCacQs(last_skl,sklId,all_skl):#Oblicza masę masła kakowego w czopkach i globulkach (ref updateTable)
+    obiekt = Skladnik.objects.get(pk=last_skl.pk)
+    receptura = Receptura.objects.get(pk=obiekt.receptura_id.pk)
+
+    if obiekt.qs == 'on':
+        a = 0.0
+        for el in all_skl:
+            if el.skladnik != 'Oleum Cacao':
+                a = a + float(el.gramy) * wspolczynniki_wyparcia[el.skladnik]
+        last_skl.gramy = str(
+            round(float(receptura.masa_docelowa_czop_glob) * float(receptura.ilosc_czop_glob) - a, 3))
+        last_skl.save()
+    elif obiekt.ad == 'on':
+        last_skl.gramy = str(
+            round(float(last_skl.ilosc_na_recepcie) * float(receptura.ilosc_czop_glob) - Sumskl(sklId), 3))
+        last_skl.save()
+    if obiekt.czy_powiekszyc_mase_oleum == 'on':
+        last_skl.gramy = str(float(last_skl.gramy) + float(receptura.masa_docelowa_czop_glob))
+        last_skl.save()

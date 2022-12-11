@@ -19,6 +19,7 @@ from reportlab.platypus import BaseDocTemplate, Frame, PageTemplate, NextPageTem
     TableStyle
 from recipe.słownik_do_tabeli import table_dict
 from recipe.wspolczynniki_wyparcia import wspolczynniki_wyparcia
+from recipe.obliczenia import obliczeniaOlCacVisual,obliczeniaEtVisual
 
 def to_pdf(request,pk):
     receptura = Receptura.objects.get(id=int(pk))
@@ -101,6 +102,8 @@ def to_pdf(request,pk):
         stri=''
         if skl.show==True:
             stri=stri+skl.skladnik+' '
+            if skl.skladnik == 'Etanol':
+                stri+= skl.pozadane_stezenie+' °'
             if skl.aa=='on':
                 stri=stri+' aa'
             elif skl.qs=='on':
@@ -109,17 +112,25 @@ def to_pdf(request,pk):
                 stri=stri+' ad'
             elif skl.aa_ad=='on':
                 stri=stri+' aa ad '
+
             if  skl.ilosc_na_recepcie!='' and float(skl.ilosc_na_recepcie)%1==0 :
                 stri=stri+' '+format(float(skl.ilosc_na_recepcie), '.1f')
             elif  skl.ilosc_na_recepcie!='' and float(skl.ilosc_na_recepcie)%1!=0 :
                 stri=stri+' '+ str(round(float(skl.ilosc_na_recepcie), 3))
             if skl.jednostka_z_recepty == 'jednostki':
                 stri+=' j.m.'
+
         return stri
     for i in Skladniki:
         if i.show==True:
             p.drawString(x, y, skladnik(i))
-            y=y-15
+            y=y-20
+    if receptura.rodzaj == 'czopki_i_globulki':
+        p.drawString(x, y, 'D.t.d. No '+receptura.ilosc_czop_glob )
+    elif receptura.rodzaj == 'masc':
+        p.drawString(x, y, 'M.f.Ung.' )
+    elif receptura.rodzaj == 'receptura_plynna_zewnetrzna' or receptura.rodzaj == 'receptura_plynna_wewnetrzna' :
+        p.drawString(x, y, 'M.f.Sol.' )
     x=300
     y=650
     count=1
@@ -176,6 +187,11 @@ def to_pdf(request,pk):
         if  y<50:
             p.showPage()
             y=800
+    # if receptura.rodzaj == 'czopki_i_globulki' and jestOleum(pk):
+    #     drawCzop(x, y, pk, p)
+
+    if jestEtanol(pk):
+        drawEtanol(x,y,pk,p)
 
     p.showPage()
     p.save()
@@ -183,3 +199,65 @@ def to_pdf(request,pk):
 
 
     return FileResponse(buffer, as_attachment=True, filename='receptura.pdf')
+
+
+
+def drawEtanol(x,y,pk,p):
+    y=y-50
+    oblEt = obliczeniaEtVisual(pk)['obl']
+    y = y - 10
+    x = x - 270
+    p.drawString(x, y, oblEt)
+    oblEt1 = obliczeniaEtVisual(pk)['obl1']
+    y = y - 15
+    p.drawString(x, y, oblEt1)
+
+    oblEt2 = obliczeniaEtVisual(pk)['obl2']
+    y = y - 35
+    p.drawString(x, y, oblEt2)
+
+    licznik = obliczeniaEtVisual(pk)['licznik']
+    y = y + 10
+    x = x + 200
+    p.drawString(x, y, licznik)
+    p.line(x + 100, y - 7, x-40, y - 7)
+
+    mianownik = obliczeniaEtVisual(pk)['mianownik']
+    y = y - 20
+    x=x+10
+    p.drawString(x, y, mianownik)
+
+    wynik = obliczeniaEtVisual(pk)['wynik']
+    y = y + 10
+    x = x + 100
+    p.drawString(x, y, wynik)
+
+    obl3 = obliczeniaEtVisual(pk)['obl3']
+    y = y - 30
+    x = x -310
+    p.drawString(x, y, obl3)
+
+
+def drawCzop(x,y,pk,p):
+    oblOl = obliczeniaOlCac(pk)['obliczenia']
+    x = x - 200
+    y = y - 10
+    p.drawString(x, y, oblOl)
+
+def jestEtanol(pk):
+
+    Skladniki = Skladnik.objects.filter(receptura_id=int(pk)).order_by("pk")
+    for i in Skladniki:
+        if i.skladnik=='Etanol':
+            return True
+    return False
+
+
+def jestOleum(pk):
+
+    Skladniki = Skladnik.objects.filter(receptura_id=int(pk)).order_by("pk")
+    for i in Skladniki:
+        if i.skladnik=="Oleum Cacao":
+            return True
+    return False
+
