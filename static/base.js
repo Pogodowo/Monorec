@@ -5,6 +5,7 @@ var ingridients=['3% roztwór kwas borowy', 'Anestezyna', 'Balsam Peruwiański',
 'Olej Rycynowy', 'Oleum Cacao', 'Oleum Menthae piperitae',
  'Papaweryna', 'Prokaina', 'Rezorcyna', 'Tlenek Cynku', 'Wazelina biała', 'Wazelina żółta', 'Witamina A', 'Witamina E', 'Woda destylowana']
 const CloseXButton= document.getElementById('close-x')
+const CloseXButton2= document.getElementById('close-x2')
 function myFunction(){}
 
 function listaSkladnikowDropFunc(){
@@ -35,6 +36,7 @@ function listaSkladnikowDropFunc(){
 const formBoxRecBase= document.getElementById('dodajRecModalBody')
 const csrfBase = document.getElementsByName('csrfmiddlewaretoken')
 const DodajRecNavFormShow=document.getElementById('dodajRecNavButton')
+const KontaktModalShow=document.getElementById('KontaktButton')
 const submitBox=document.getElementById('dodajRecSubmit')
 //const zaDuzoRecepturModal=document.getElementById("zaDuzoRecepturModal")
 function removeElementsByClass(className){
@@ -181,6 +183,8 @@ function dodawanieRec(){
                     /////tu koniec wstawania//////
 
 generowanieFormularzaRecepty()
-DodajRecNavFormShow.addEventListener('click', e=>{console.log("no i co? "); $("#dodajRecModal").modal('show');})
+DodajRecNavFormShow.addEventListener('click', e=>{ $("#dodajRecModal").modal('show');})
+KontaktModalShow.addEventListener('click', e=>{ $("#kontaktModal").modal('show');})
 submitBox.addEventListener('click', dodawanieRec)
 CloseXButton.addEventListener('click', e=>{ $("#dodajRecModal").modal('hide');})
+CloseXButton2.addEventListener('click', e=>{ $("#kontaktModal").modal('hide');})

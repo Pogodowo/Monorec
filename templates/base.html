@@ -44,7 +44,13 @@
           <nav class="dropdown-menu" aria-labelledby="navbarDropdown" id="lista-dropdown"> </nav>
 
         </div>
+        <li class="nav-item">
+          <a class="nav-link" id="KontaktButton" data-target="#kontaktModal" href="#kontaktModal">Pomoc</a>
+        </li>
 
+
+      </ul>
+      <ul>
 
       </ul>
       <img src="{% static 'mortar4.png' %}"/>
@@ -84,6 +90,27 @@
   </div>
 </div>
 
+
+<div class="modal fade" id="kontaktModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" >
+        <h5 class="modal-title" >Pomoc</h5>
+        <button type="button" class="close-x" id ="close-x2" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="kontaktField">
+        <p> dział w budowie</p>
+        <a href="https://www.youtube.com/@twoja.receptura" target="_blank">youtube: Twojareceptura</a>
+      </div>
+      <div class="modal-footer">
+
+
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Modal -->
 
 {% block content %}

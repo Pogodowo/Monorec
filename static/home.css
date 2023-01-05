@@ -11,13 +11,19 @@ background-size: 100%;
     font-align: center;
     font-size: 30px;
     border-radius: 10px;
-    align: left;
-    margin-bottom: 5px;
-    margin-top: 5px;
+    margin: 5px 5px 5px 5px;
+
 
 }
 
 #waga {
 background-image: None;
+
+}
+
+
+#button-row {
+display: flex;
+flex-wrap: wrap;
 
 }

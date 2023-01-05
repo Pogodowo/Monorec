@@ -5,9 +5,9 @@ import sys
 def Przeliczanie_etanolu(skladnik,pk,gramy):
     ret={"ilosc_etanolu":0,"ilosc_wody_do_etanolu":0}
     if skladnik=='Etanol' and gramy!='':
-        obiekt=Skladnik.objects.get(pk=pk)
-        pozadane_stezenie=tabela_etanolowa[obiekt.pozadane_stezenie]
-        uzyte_stezenie=tabela_etanolowa[obiekt.uzyte_stezenie]
+        oleum=Skladnik.objects.get(pk=pk)
+        pozadane_stezenie=tabela_etanolowa[oleum.pozadane_stezenie]
+        uzyte_stezenie=tabela_etanolowa[oleum.uzyte_stezenie]
         ilosc_etanolu_z_rec=gramy
 
         if ilosc_etanolu_z_rec!='':
@@ -205,22 +205,31 @@ def obliczeniaEtVisual(sklId):# Tworzy stringi z obliczeniami etanolowymi użyty
     return {'obl': obl, 'obl1': obl1,'obl2':obl2,'licznik':licznik,'mianownik':mianownik,'wynik':wynik,'obl3':obl3}
 
 
-def obliczeniaOlCacQs(last_skl,sklId,all_skl):#Oblicza masę masła kakowego w czopkach i globulkach (ref updateTable)
-    obiekt = Skladnik.objects.get(pk=last_skl.pk)
-    receptura = Receptura.objects.get(pk=obiekt.receptura_id.pk)
-
-    if obiekt.qs == 'on':
+def obliczeniaOlCacQs(last_skl,sklId,all_skl,alerty):#Oblicza masę masła kakowego w czopkach i globulkach (ref updateTable)
+    if last_skl.qs == 'on':
+        receptura = Receptura.objects.get(pk=last_skl.receptura_id.pk)
         a = 0.0
         for el in all_skl:
             if el.skladnik != 'Oleum Cacao':
                 a = a + float(el.gramy) * wspolczynniki_wyparcia[el.skladnik]
         last_skl.gramy = str(
             round(float(receptura.masa_docelowa_czop_glob) * float(receptura.ilosc_czop_glob) - a, 3))
-        last_skl.save()
-    elif obiekt.ad == 'on':
-        last_skl.gramy = str(
-            round(float(last_skl.ilosc_na_recepcie) * float(receptura.ilosc_czop_glob) - Sumskl(sklId), 3))
-        last_skl.save()
-    if obiekt.czy_powiekszyc_mase_oleum == 'on':
+        if float(last_skl.gramy)>0:
+            last_skl.save()
+        else:
+            alerty['alert']='Masa składników przekracza docelową masę czopka/globulki'
+            last_skl.delete()
+    elif last_skl.ad == 'on':
+        receptura = Receptura.objects.get(pk=last_skl.receptura_id.pk)
+        if float(last_skl.ilosc_na_recepcie) * float(receptura.ilosc_czop_glob)>Sumskl(sklId):
+            last_skl.gramy = str(round(float(last_skl.ilosc_na_recepcie) * float(receptura.ilosc_czop_glob) - Sumskl(sklId), 3))
+            last_skl.save()
+        else:
+             alerty['alert'] = 'ilość dodanego składnika z ad musi być większa niż masa dotychczasowych skladników'
+             last_skl.delete()
+
+    if last_skl.czy_powiekszyc_mase_oleum == 'on':
+        receptura = Receptura.objects.get(pk=last_skl.receptura_id.pk)
         last_skl.gramy = str(float(last_skl.gramy) + float(receptura.masa_docelowa_czop_glob))
         last_skl.save()
+

@@ -308,8 +308,8 @@ def aktualizujTabela(request, sklId):
         if jest_ad == True and skladnik_z_ad != None:
             skladnik_z_ad.aa_ad_gramy = skladnik_z_ad.ilosc_na_recepcie
             skladnik_z_ad.save()
-            if skladnik_z_ad.ilosc_na_recepcie == '' or float(skladnik_z_ad.ilosc_na_recepcie) < Sumskl(sklId):
-                alerty['alert'] = 'ilość dodanego składnika z ad musi być większ niż masa dotychczasowych skladników'
+            if (skladnik_z_ad.ilosc_na_recepcie == '' or float(skladnik_z_ad.ilosc_na_recepcie) < Sumskl(sklId)) and skladnik_z_ad.skladnik!='Oleum Cacao':
+                alerty['alert'] = 'ilość dodanego składnika z ad musi być większa niż masa dotychczasowych skladników'
                 skladnik_z_ad.delete()
                 jest_ad = False
             else:
@@ -448,7 +448,7 @@ def aktualizujTabela(request, sklId):
             woda.ilosc_wody_do_etanolu = '0'
 
         if last_skl.skladnik == 'Oleum Cacao':#obliczanie ilości masła kakowego
-            obliczeniaOlCacQs(last_skl,sklId,all_skl)
+            obliczeniaOlCacQs(last_skl,sklId,all_skl,alerty)
 
         Sumowanie_wody(sklId, gramy_po_podziale)
         Kasowanie_wody(sklId)

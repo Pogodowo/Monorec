@@ -62,6 +62,11 @@ class Skladnik(models.Model):
     def __str__(self):
         return self.skladnik
 
+    # class Stats (models.Model):
+    #     ilosc_receptur = models.IntegerField(default=0)
+    #     def __str__(self):
+    #         return self.ilosc_receptur
+
 
 
 

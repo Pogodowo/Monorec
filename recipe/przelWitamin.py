@@ -50,8 +50,8 @@ def PrzeliczanieWit(dodanySkladnik,to_updade,rodzaj,ilosc):
                 to_updade['mililitry'] = str(round(float(to_updade['ilosc_na_recepcie']) / (float(to_updade['gestosc'])), 3))
                 to_updade['gramy'] = to_updade['ilosc_na_recepcie']
         elif to_updade['jednostka_z_recepty']=='krople':#'jednostka_z_recepty','solutio','opakowania','gramy','jednostki'
-                to_updade['gramy'] = str(round(float(to_updade['ilosc_na_recepcie']) * 0.019, 3))
-                to_updade['mililitry'] = str(round((float(to_updade['ilosc_na_recepcie'])*0.019) / (float(to_updade['gestosc'])), 3))
+                to_updade['gramy'] = str(round(float(to_updade['ilosc_na_recepcie']) * 0.020, 3))
+                to_updade['mililitry'] = str(round((float(to_updade['ilosc_na_recepcie'])*0.020) / (float(to_updade['gestosc'])), 3))
                 to_updade['krople'] = to_updade['ilosc_na_recepcie']
     elif dodanySkladnik=='Witamina E':#to_update {'skladnik': 'Witamina A', 'jednostka_z_recepty': 'solutio', 'ilosc_na_recepcie': '3', 'producent': 'Hasco 4500j.m./ml', 'gestosc': '1.082'}
         if to_updade['jednostka_z_recepty']=='gramy_roztworu':#'jednostka_z_recepty','solutio','opakowania','gramy','jednostki'

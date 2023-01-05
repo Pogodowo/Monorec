@@ -336,7 +336,137 @@ function dodawanieSkl(){
 
 
 
+function recipe (item,param,slownik,wspolczynniki_wyparcia,numElem){//funkcja tworząca obraz recepty po lewej stronie ekranu
+            const div=document.createElement('div')
+            ///////dodawanie przycisku do usuwania////////////////
+            var deleteButton = document.createElement("button");
+//          element.type = type;type="button" class="close" data-dismiss="modal" aria-label="Close"
+            deleteButton.setAttribute('type','button');
+            deleteButton.setAttribute('class',"btn-close");
+            deleteButton.setAttribute('aria-label','Close');
+            deleteButton.setAttribute('id',item.pk);
+            //deleteButton.setAttribute('onclick',delItem);
+            deleteButton.onclick = function() {usuwanieSkladnika(item.pk);
+            }
+            //////////////////////////////////////////////////////
+            if (item.fields.show===true){
+            div.innerHTML+= numElem+') ' + item.fields.skladnik+'  '
+            if (item.fields.skladnik==='Etanol'){div.innerHTML+=item.fields.pozadane_stezenie+'° '}
+            if(item.fields.jednostka_z_recepty==='gramy_roztworu'){div.innerHTML+='sol. '}
+            if (item.fields.aa==='on'){div.innerHTML+='aa '}
+            else if(item.fields.aa_ad==='on'){div.innerHTML+='aa ad '}
+            else if(item.fields.ad==='on'){div.innerHTML+='ad '}
+            else if(item.fields.qs==='on'){div.innerHTML+='qs '}
+            else if(item.fields.jednostka_z_recepty==='krople'){div.innerHTML+='gutt. '}
+            if (item.fields.ilosc_na_recepcie!=='' && parseFloat(item.fields.ilosc_na_recepcie)%1==0) {div.innerHTML+=parseFloat(item.fields.ilosc_na_recepcie).toFixed(1)}//10.toFixed(2)
+            else if (item.fields.ilosc_na_recepcie!=='' && parseFloat(item.fields.ilosc_na_recepcie)%1!=0) {div.innerHTML+=item.fields.ilosc_na_recepcie}
+            if (item.fields.jednostka_z_recepty==='jednostki') {div.innerHTML+=' j.m.'}
 
+            div.appendChild(deleteButton);
+            tabelaDocelowa.appendChild(div);
+            }
+
+
+}
+function ParametrCard (item,param,slownik,wspolczynniki_wyparcia,numElem){
+         card=document.createElement('div')
+         card.setAttribute('class','card-css')
+         //card.setAttribute('style','width: 36rem;')
+         var ul=document.createElement('ul')
+         ul.setAttribute('class','list-group-skl')
+         var li=document.createElement('li')
+         li.setAttribute('class','my-card-header')
+         li.setAttribute('value', item.pk)
+         li.setAttribute('style','padding:5px; font-size: 20px; background-color: white; height: 3.5rem; ')
+         var span=document.createElement('span')
+//        if (item.fields.skladnik=='3% roztwór kwas borowy' && item.fields.czy_zlozyc_roztwor_ze_skladnikow_prostych=='on')
+//        {span.innerHTML=numElem+')   kwas borowy'}else{
+         span.innerHTML=numElem+')   '+item.fields.skladnik//}
+         var buttonDel=document.createElement('button')
+         buttonDel.innerText='Usuń'
+         buttonDel.setAttribute('class','btn btn-secondary mt-1 button-card')
+         buttonDel.setAttribute('id','button-del')
+         var buttonEd=document.createElement('button')
+         buttonEd.innerText='Edytuj'
+         buttonEd.setAttribute('class','btn btn-primary mt-1 button-card')
+         buttonEd.setAttribute('id','button-ed')
+         if (item.fields.skladnik=='Etanol'|| item.fields.skladnik=="Oleum Cacao"){
+         var buttonObl=document.createElement('button')
+         buttonObl.innerText='Obliczenia'
+         buttonObl.setAttribute('class','btn btn-secondary mt-1 button-card')
+         if (item.fields.skladnik=='Etanol'){
+         buttonObl.setAttribute('id','button-obl-et');
+         buttonObl.onclick = function() { $("#oblEtModal").modal('show');
+         oblEt();}
+         }
+         else if  (item.fields.skladnik=="Oleum Cacao")
+         {
+         buttonObl.setAttribute('id','button-obl-ol');
+         buttonObl.onclick = function() { $("#oblOlModal").modal('show');
+         oblOlCacao();}
+         }
+         }
+         li.appendChild(buttonDel)
+         li.appendChild(buttonEd)
+        if(buttonObl!=null){li.appendChild(buttonObl)}
+//
+//       }
+       li.append(span)
+       ul.appendChild(li)
+       buttonDel.onclick = function() {usuwanieSkladnika(item.pk);
+            }
+       buttonEd.onclick = function() {generowanieFormularzaDoEdycji(item.fields.skladnik ,item.pk);
+            }
+        var li2=document.createElement('li')
+       //li2.classList.add( 'li-inline');
+       li2.setAttribute('class','flex-container')
+       //li2.setAttribute('class','li-inline')
+
+        /////////wypisywanie atrybutów danego składnika/////
+
+//        for (const [key, value] of Object.entries(item.fields)){ if ( value!=null && value!='0' && value!=''  ){
+//               const div=document.createElement('div')
+//                  div.setAttribute('class','flex-item')
+//                  if (key in slownik){console.log('jest w słowniku')
+//                  div.innerHTML+=' '+slownik[key]+': '
+//                  div.innerHTML+=value}else{
+//                  div.innerHTML+=' '+key+': '
+//                  div.innerHTML+=value}
+//             li2.appendChild(div)
+//                                                    }}
+        ///////////////////////////////////////////////////
+        /////////wypisywanie wybranych atrybutów do karty///////////////////////////////////
+
+        for (const [key, value] of Object.entries(item.fields)){ if ( value!=null && value!='0' && value!='' && display[item.fields.skladnik].includes(key) ){
+               const div=document.createElement('div')
+                  div.setAttribute('class','flex-item')
+                  if (key in slownik){
+                  div.innerHTML+=' '+slownik[key]+': '
+                  div.innerHTML+=value}else{
+                  div.innerHTML+=' '+key+': '
+                  div.innerHTML+=value}
+             li2.appendChild(div)
+                                                    }}
+        if (param['rodzaj']==='czopki_i_globulki' && wspolczynniki_wyparcia.hasOwnProperty(item.fields.skladnik) && item.fields.skladnik != 'Oleum Cacao'){
+               const div=document.createElement('div')
+                  div.setAttribute('class','flex-item')
+
+                  div.innerHTML='współczynnik wyparcia: '+wspolczynniki_wyparcia[item.fields.skladnik]
+             li2.appendChild(div)}
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        ul.appendChild(li2)
+        card.appendChild(ul)
+        cardBox.appendChild(card)
+
+
+
+
+            //////////////////////////////////////////////
+
+
+
+}
 
 ////////////////////////////////////////////////////////////
 ////////funkcja z ajaxem do aktualizacji taveli///////
@@ -379,7 +509,7 @@ function updateTable(){
              li2.setAttribute('class','flex-containerparam')
          //li2.setAttribute('class','li-inline')
 
-        /////////wypisywanie atrybutów danego składnika/////
+        /////////wypisywanie atrybutów danego składnika ,nagłówek/////
 
 
         for (const [key, value] of Object.entries(param)){ if ( value!=null && value!='0' && value!=''  ){
@@ -409,13 +539,9 @@ function updateTable(){
 
                                                     }
         ///////////////////////////////////////////////////
-
-        ul.appendChild(li2)
-        card.appendChild(ul)
-        parametryRecBox.appendChild(card)
-
-            ////////////////koniec testu//////////////////////////////
-            //let tabelaDocelowa=document.getElementById("tabela-docelowa");
+            ul.appendChild(li2)
+            card.appendChild(ul)
+            parametryRecBox.appendChild(card)
             tabelaDocelowa.innerHTML=''
             cardBox.innerHTML=''
             div=document.createElement('div')
@@ -424,146 +550,15 @@ function updateTable(){
             var numElem=1
             if (elementyTabeli!=null){
             elementyTabeli.map(item=>{
-            const div=document.createElement('div')
-            ///////dodawanie przycisku do usuwania////////////////
-            var deleteButton = document.createElement("button");
+            recipe (item,param,slownik,wspolczynniki_wyparcia,numElem)
+            ParametrCard (item,param,slownik,wspolczynniki_wyparcia,numElem)
+            numElem+=1
 
-//          element.type = type;type="button" class="close" data-dismiss="modal" aria-label="Close"
-            deleteButton.setAttribute('type','button');
-            deleteButton.setAttribute('class',"btn-close");
-            deleteButton.setAttribute('aria-label','Close');
-            deleteButton.setAttribute('id',item.pk);
-            //deleteButton.setAttribute('onclick',delItem);
-            deleteButton.onclick = function() {usuwanieSkladnika(item.pk);
-            }
-            //////////////////////////////////////////////////////
-            if (item.fields.show===true){
-            div.innerHTML+= numElem+') ' + item.fields.skladnik+'  '
-            if (item.fields.skladnik==='Etanol'){div.innerHTML+=item.fields.pozadane_stezenie+'° '}
-            if(item.fields.jednostka_z_recepty==='gramy_roztworu'){div.innerHTML+='sol. '}
-            if (item.fields.aa==='on'){div.innerHTML+='aa '}
-            else if(item.fields.aa_ad==='on'){div.innerHTML+='aa ad '}
-            else if(item.fields.ad==='on'){div.innerHTML+='ad '}
-            else if(item.fields.qs==='on'){div.innerHTML+='qs '}
-            else if(item.fields.jednostka_z_recepty==='krople'){div.innerHTML+='gutt. '}
-            if (item.fields.ilosc_na_recepcie!=='' && parseFloat(item.fields.ilosc_na_recepcie)%1==0) {div.innerHTML+=parseFloat(item.fields.ilosc_na_recepcie).toFixed(1)}//10.toFixed(2)
-            else if (item.fields.ilosc_na_recepcie!=='' && parseFloat(item.fields.ilosc_na_recepcie)%1!=0) {div.innerHTML+=item.fields.ilosc_na_recepcie}
-            if (item.fields.jednostka_z_recepty==='jednostki') {div.innerHTML+=' j.m.'}
-
-            div.appendChild(deleteButton);
-            tabelaDocelowa.appendChild(div);
-            }
-
-
-
-            //div.innerHTML+='<br>'
-            ///////////////dodawanie kart/////////////////
-
-
-      card=document.createElement('div')
-
-          card.setAttribute('class','card-css')
-          //card.setAttribute('style','width: 36rem;')
-
-   var ul=document.createElement('ul')
-        ul.setAttribute('class','list-group-skl')
-   var li=document.createElement('li')
-        li.setAttribute('class','my-card-header')
-        li.setAttribute('value', item.pk)
-
-        li.setAttribute('style','padding:5px; font-size: 20px; background-color: white; height: 3.5rem; ')
-   var span=document.createElement('span')
-//        if (item.fields.skladnik=='3% roztwór kwas borowy' && item.fields.czy_zlozyc_roztwor_ze_skladnikow_prostych=='on')
-//        {span.innerHTML=numElem+')   kwas borowy'}else{
-        span.innerHTML=numElem+')   '+item.fields.skladnik//}
-
-   var buttonDel=document.createElement('button')
-       buttonDel.innerText='Usuń'
-       buttonDel.setAttribute('class','btn btn-secondary mt-1 button-card')
-       buttonDel.setAttribute('id','button-del')
-   var buttonEd=document.createElement('button')
-       buttonEd.innerText='Edytuj'
-       buttonEd.setAttribute('class','btn btn-primary mt-1 button-card')
-       buttonEd.setAttribute('id','button-ed')
-   if (item.fields.skladnik=='Etanol'|| item.fields.skladnik=="Oleum Cacao"){
-   var buttonObl=document.createElement('button')
-       buttonObl.innerText='Obliczenia'
-       buttonObl.setAttribute('class','btn btn-secondary mt-1 button-card')
-       if (item.fields.skladnik=='Etanol'){buttonObl.setAttribute('id','button-obl-et');
-        buttonObl.onclick = function() { $("#oblEtModal").modal('show');
-         oblEt();}
-       }
-       else if  (item.fields.skladnik=="Oleum Cacao"){
-       buttonObl.setAttribute('id','button-obl-ol');
-       buttonObl.onclick = function() { $("#oblOlModal").modal('show');
-       oblOlCacao();}
-       }
-       }
-       li.appendChild(buttonDel)
-       li.appendChild(buttonEd)
-       if(buttonObl!=null){li.appendChild(buttonObl)}
-//
-//       }
-       li.append(span)
-       ul.appendChild(li)
-
-   buttonDel.onclick = function() {usuwanieSkladnika(item.pk);
-            }
-   buttonEd.onclick = function() {generowanieFormularzaDoEdycji(item.fields.skladnik ,item.pk);
-            }
-   var li2=document.createElement('li')
-       //li2.classList.add( 'li-inline');
-       li2.setAttribute('class','flex-container')
-       //li2.setAttribute('class','li-inline')
-
-        /////////wypisywanie atrybutów danego składnika/////
-
-//        for (const [key, value] of Object.entries(item.fields)){ if ( value!=null && value!='0' && value!=''  ){
-//               const div=document.createElement('div')
-//                  div.setAttribute('class','flex-item')
-//                  if (key in slownik){console.log('jest w słowniku')
-//                  div.innerHTML+=' '+slownik[key]+': '
-//                  div.innerHTML+=value}else{
-//                  div.innerHTML+=' '+key+': '
-//                  div.innerHTML+=value}
-//             li2.appendChild(div)
-//                                                    }}
-        ///////////////////////////////////////////////////
-        /////////wypisywanie wybranych atrybutów do karty///////////////////////////////////
-
-        for (const [key, value] of Object.entries(item.fields)){ if ( value!=null && value!='0' && value!='' && display[item.fields.skladnik].includes(key) ){
-               const div=document.createElement('div')
-                  div.setAttribute('class','flex-item')
-                  if (key in slownik){
-                  div.innerHTML+=' '+slownik[key]+': '
-                  div.innerHTML+=value}else{
-                  div.innerHTML+=' '+key+': '
-                  div.innerHTML+=value}
-             li2.appendChild(div)
-                                                    }}
-        if (param['rodzaj']==='czopki_i_globulki' && wspolczynniki_wyparcia.hasOwnProperty(item.fields.skladnik) && item.fields.skladnik != 'Oleum Cacao'){
-               const div=document.createElement('div')
-                  div.setAttribute('class','flex-item')
-
-                  div.innerHTML='współczynnik wyparcia: '+wspolczynniki_wyparcia[item.fields.skladnik]
-             li2.appendChild(div)}
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        ul.appendChild(li2)
-        card.appendChild(ul)
-        cardBox.appendChild(card)
-        numElem+=1
-
-
-
-            //////////////////////////////////////////////
 
 
             })
-            //var skladnikiRecepturyBox=document.getElementById(`${sklId}-skladniki`)
 
-
-            }
+            }//tutaj koniec if (elementyTabeli!=null)
             if (param['rodzaj']==='czopki_i_globulki' & param["czopki_czy_globulki"]==='czopki'){
             div=document.createElement('div');
             div.innerHTML='<br>M.f. supp. anal. D.t.d. No '+param['ilosc_czop_glob'];
@@ -581,8 +576,6 @@ function updateTable(){
             div.innerHTML='<br>M.f. Sol. ';
             tabelaDocelowa.appendChild(div)
             }
-
-
             if (alerty!=null && alerty['alert']!=''){alert(alerty['alert'])}
             },
             error : function (error){console.log('error')},
@@ -723,11 +716,6 @@ function generowanieFormularzaDoEdycji (item,pk){
             console.log('error')}
             })
             }
-
-
-
-
-
 
 //////////////////////3pozycja/////////////////////////////////////////////////////
 
