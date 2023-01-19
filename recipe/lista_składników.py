@@ -10,11 +10,12 @@ data={'Witamina A':[['jednostka_z_recepty','gramy_roztworu','krople','jednostki'
       'Wazelina żółta':['ilosc_na_recepcie','aa','aa_ad','ad'],
       'Euceryna': ['ilosc_na_recepcie', 'aa', 'aa_ad', 'ad'],
       'Lanolina':['ilosc_na_recepcie','aa','aa_ad','ad'],
+      "Lidokaina":['ilosc_na_recepcie','aa'],
       'Gliceryna 86%': ['ilosc_na_recepcie', 'aa', 'aa_ad', 'ad'],
       'Etanol':['ilosc_na_recepcie',
        ['pozadane_stezenie','10','15','20','25','30','35','40','45','50','55','60','65','70','40','96',]
       ,['uzyte_stezenie','69.6','69.7','69.8','69.8','70','70.1','70.2','70.3','70.4','70.5','70.6','95.2','95.3','95.4','95.5','95.6','95.7','95.8','95.9','96','96.1','96.2','96.3','96.4','96.5','96.6','96.7','96.8','96.9',],'aa','aa_ad','ad'],
-      "Oleum Cacao":['ilosc_na_recepcie','ad','qs','czy_powiekszyc_mase_oleum'],
+      "Oleum Cacao":['ilosc_na_recepcie','ad','qs'],
       'Oleum Menthae piperitae':[['jednostka_z_recepty','krople','gramy',],'ilosc_na_recepcie',['gestosc','0.901']],
       'Nystatyna':[['jednostka_z_recepty','jednostki'],'ilosc_na_recepcie','UI_w_mg'],
       '3% roztwór kwas borowy':['ilosc_na_recepcie','aa','aa_ad','ad','czy_zlozyc_roztwor_ze_skladnikow_prostych'],
@@ -38,3 +39,5 @@ data={'Witamina A':[['jednostka_z_recepty','gramy_roztworu','krople','jednostki'
       'Kwas Salicylowy':['ilosc_na_recepcie','aa'],
       'Kwas Borowy':['ilosc_na_recepcie','aa']
       }
+
+#'''czy_powiekszyc_mase_oleum'''

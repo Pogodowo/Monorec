@@ -188,7 +188,7 @@ def to_pdf(request,pk):
             p.showPage()
             y=800
     # if receptura.rodzaj == 'czopki_i_globulki' and jestOleum(pk):
-    #     drawCzop(x, y, pk, p)
+    #      drawCzop(x, y, pk, p)
 
     if jestEtanol(pk):
         drawEtanol(x,y,pk,p)
@@ -239,7 +239,7 @@ def drawEtanol(x,y,pk,p):
 
 
 def drawCzop(x,y,pk,p):
-    oblOl = obliczeniaOlCac(pk)['obliczenia']
+    oblOl = obliczeniaOlCacVisual(pk)['obliczenia']
     x = x - 200
     y = y - 10
     p.drawString(x, y, oblOl)
