@@ -16,7 +16,7 @@ class Receptura(models.Model):
     session = models.ForeignKey(Session, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.nazwa
+        return self.rodzaj
 
 
 class Skladnik(models.Model):

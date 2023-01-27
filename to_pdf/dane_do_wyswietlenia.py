@@ -9,7 +9,7 @@ dane_do_wyswietlenia={'Witamina A':['gramy_roztworu','krople','jednostki','gesto
             'Bizmutu azotan zasadowy':['gramy'],'Prokaina':['gramy'],'Anestezyna':['gramy'],'Hascobaza':['gramy'],"Neomycyna":['gramy'],
                 'Efedryna':['gramy'],'Erytromycyna':['gramy'],'Wazelina biała':['gramy'],'Tlenek Cynku':['gramy'],'Olej Rycynowy':['gramy'],
                       'Papaweryna':['gramy'],'Mentol':['gramy'],'Laktoza':['gramy'],'Kwas Salicylowy':['gramy'],
-                'Nystatyna':['gramy','jednostki'],'3% roztwór kwas borowy':['gramy','ilosc_kwasu_borowego_do_roztworu','woda_kwas_borowy'],
+                'Nystatyna':['gramy','jednostki'],'3% roztwór kwasu borowego':['gramy','ilosc_kwasu_borowego_do_roztworu','woda_kwas_borowy'],
              'Euceryna':['gramy'],'Gliceryna 86%':['gramy'],'Detreomycyna':['gramy'],'Rezorcyna':['gramy'],"Witamina E":['gramy'],"Wazelina żółta":['gramy'],
-                      'Oleum Menthae piperitae':['gramy','krople','gestosc','mililitry'],'Lanolina':['gramy'],'Kwas Borowy':['gramy'],'Lidokaina':['gramy'],
+                      'Oleum Menthae piperitae':['gramy','krople','gestosc','mililitry'],'Lanolina':['gramy'],'Kwas Borowy':['gramy'],'Lidokaina':['gramy'],'Woda Utleniona 3%':['gramy'],
 }

@@ -10,7 +10,7 @@ fields={'common':[['rodzaj','masc','czopki_i_globulki','receptura_plynna_wewnetr
         'receptura_plynna':'receptura płynna','czopki':'czopki','globulki':'globulki',
        'czy_ilosc_oleum_pomnozyc' :'czy pomnożyć masło kakaowe','tak':'tak','nie':'nie',
         'ilosc_masci':'ilośc maści','nazwa':'nazwa','ilość maści':'ilość maści','ilość_gramow':'ilość_gramow',
-'receptura_plynna_wewnetrzna':'receptura plynna wewnętrzna','receptura_plynna_zewnetrzna':'receptura płynna zewnętrzna'
+'receptura_plynna_wewnetrzna':'receptura płynna wewnętrzna','receptura_plynna_zewnetrzna':'receptura płynna zewnętrzna'
 
             }
 }

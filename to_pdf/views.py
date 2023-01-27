@@ -102,6 +102,10 @@ def to_pdf(request,pk):
         stri=''
         if skl.show==True:
             stri=stri+skl.skladnik+' '
+            if skl.jednostka_z_recepty == 'gramy_roztworu':
+                stri+=' sol. '
+            if skl.jednostka_z_recepty == 'krople':
+                stri+=' gtt. '
             if skl.skladnik == 'Etanol':
                 stri+= skl.pozadane_stezenie+' °'
             if skl.aa=='on':
@@ -119,6 +123,7 @@ def to_pdf(request,pk):
                 stri=stri+' '+ str(round(float(skl.ilosc_na_recepcie), 3))
             if skl.jednostka_z_recepty == 'jednostki':
                 stri+=' j.m.'
+
 
         return stri
     for i in Skladniki:
@@ -184,7 +189,7 @@ def to_pdf(request,pk):
 
         p.setLineWidth(1)
         y=y-15
-        if  y<50:
+        if  y<80:
             p.showPage()
             y=800
     # if receptura.rodzaj == 'czopki_i_globulki' and jestOleum(pk):

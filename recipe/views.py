@@ -191,7 +191,8 @@ def dodajsklJson (request,sklId):
                     setattr(new_skl, key, value)
                 new_skl.save()
                 ####################dodawanie aut aa bo w uptade Table trzeba było odświerzać to dodaję tu
-                if previous_skl != None and previous_skl.gramy == '' and new_skl.gramy != '' and new_skl.ilosc_na_recepcie.isnumeric() :
+                print("new_skl.ilosc_na_recepcie.isnumeric()",new_skl.ilosc_na_recepcie.isnumeric() )
+                if previous_skl != None and previous_skl.gramy == '' and new_skl.gramy != '' :#and new_skl.ilosc_na_recepcie.isnumeric()
                     new_skl.aa = 'on'
                     new_skl.save()
                 #############zamienianie ad na aa_ad jeżeli nie podano wartości w poprzednim składniku############
@@ -248,7 +249,7 @@ def aktualizujTabela(request, sklId):
             if i.skladnik == 'Woda destylowana':
                 jestwoda = True
                 woda = i
-            elif i.skladnik == '3% roztwór kwas borowy':
+            elif i.skladnik == '3% roztwór kwasu borowego':
                 jest_roztw_kw = True
                 roztw_kw = i
             elif i.skladnik == 'Etanol':
@@ -313,7 +314,7 @@ def aktualizujTabela(request, sklId):
                 skladnik_z_ad.delete()
                 jest_ad = False
             else:
-                skladnik_z_ad.gramy = str(float(skladnik_z_ad.ilosc_na_recepcie) - Sumskl(sklId))
+                skladnik_z_ad.gramy = str(round(float(skladnik_z_ad.ilosc_na_recepcie) - Sumskl(sklId),3))
                 gramy_po_podziale = skladnik_z_ad.gramy
                 skladnik_z_ad.save()
         elif jest_ad == True and skladnik_z_ad != None and skladnik_z_ad.ad == 'on' and skladnik_z_ad.aa == 'on':
@@ -348,7 +349,7 @@ def aktualizujTabela(request, sklId):
             if skladnik_z_aa_ad.ilosc_na_recepcie != '':
                 # skladnik_z_aa_ad.aa_ad_gramy=skladnik_z_aa_ad.ilosc_na_recepcie#########
                 skladnik_z_aa_ad.save()
-                gramy_po_podziale = str(round((float(skladnik_z_aa_ad.ilosc_na_recepcie) - Sumskl(sklId)) / a, 2))
+                gramy_po_podziale = str(round((float(skladnik_z_aa_ad.ilosc_na_recepcie) - Sumskl(sklId)) / a, 3))
 
             b = 0
 
@@ -363,7 +364,7 @@ def aktualizujTabela(request, sklId):
                     if ob.skladnik == 'Etanol':
                         etanol.gramy = gramy_po_podziale
                         etanol.save()
-                    elif ob.skladnik == '3% roztwór kwas borowy' and roztw_kw != None:
+                    elif ob.skladnik == '3% roztwór kwasu borowego' and roztw_kw != None:
                         roztw_kw.gramy = gramy_po_podziale
                         roztw_kw.save()
                     elif ob.skladnik == 'Woda destylowana' and woda != None:
@@ -401,8 +402,8 @@ def aktualizujTabela(request, sklId):
                 roztw_kw.save()
         if jest_roztw_kw != False and roztw_kw != None and roztw_kw.gramy != '':
             if roztw_kw.czy_zlozyc_roztwor_ze_skladnikow_prostych == 'on':
-                roztw_kw.woda_kwas_borowy = str(round(float(roztw_kw.gramy) - float(roztw_kw.gramy) * 0.03, 2))
-                roztw_kw.ilosc_kwasu_borowego_do_roztworu = str(round(float(roztw_kw.gramy) * 0.03, 2))
+                roztw_kw.woda_kwas_borowy = str(round(float(roztw_kw.gramy) - float(roztw_kw.gramy) * 0.03, 3))
+                roztw_kw.ilosc_kwasu_borowego_do_roztworu = str(round(float(roztw_kw.gramy) * 0.03, 3))
                 roztw_kw.save()
                 if jestwoda == True and woda != None:
                     woda.woda_kwas_borowy = roztw_kw.woda_kwas_borowy
@@ -494,7 +495,7 @@ def delSkl(request, id):
         if jestwoda == True and woda:
             woda.ilosc_wody_do_etanolu = '0'
             woda.save()
-    if skl.skladnik == '3% roztwór kwas borowy':
+    if skl.skladnik == '3% roztwór kwasu borowego':
         if jestwoda == True and woda:
             woda.woda_kwas_borowy = '0'
             woda.save()

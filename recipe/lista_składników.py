@@ -18,7 +18,7 @@ data={'Witamina A':[['jednostka_z_recepty','gramy_roztworu','krople','jednostki'
       "Oleum Cacao":['ilosc_na_recepcie','ad','qs'],
       'Oleum Menthae piperitae':[['jednostka_z_recepty','krople','gramy',],'ilosc_na_recepcie',['gestosc','0.901']],
       'Nystatyna':[['jednostka_z_recepty','jednostki'],'ilosc_na_recepcie','UI_w_mg'],
-      '3% roztwór kwas borowy':['ilosc_na_recepcie','aa','aa_ad','ad','czy_zlozyc_roztwor_ze_skladnikow_prostych'],
+      '3% roztwór kwasu borowego':['ilosc_na_recepcie','aa','aa_ad','ad','czy_zlozyc_roztwor_ze_skladnikow_prostych'],
       'Kwas borowy':['ilosc_na_recepcie','aa'],
       'Maść Cholesterolowa':['ilosc_na_recepcie','aa','aa_ad','ad'],
       'Balsam Peruwiański':['ilosc_na_recepcie'],
@@ -37,7 +37,8 @@ data={'Witamina A':[['jednostka_z_recepty','gramy_roztworu','krople','jednostki'
       'Mentol':['ilosc_na_recepcie','aa'],
       'Laktoza':['ilosc_na_recepcie','aa'],
       'Kwas Salicylowy':['ilosc_na_recepcie','aa'],
-      'Kwas Borowy':['ilosc_na_recepcie','aa']
+      'Kwas Borowy':['ilosc_na_recepcie','aa'],
+      'Woda Utleniona 3%':['ilosc_na_recepcie','aa','aa_ad','ad']
       }
 
 #'''czy_powiekszyc_mase_oleum'''

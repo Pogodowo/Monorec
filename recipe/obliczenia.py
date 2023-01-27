@@ -15,8 +15,8 @@ def Przeliczanie_etanolu(skladnik,pk,gramy):
                 czysty_etanol=(float(pozadane_stezenie)/100)*float(ilosc_etanolu_z_rec)
                 ilosc_etanolu=(100*float(czysty_etanol))/float(uzyte_stezenie)
                 ilosc_wody=float(float(ilosc_etanolu_z_rec)-ilosc_etanolu)
-                ret["ilosc_etanolu"]=str(round(ilosc_etanolu,2))
-                ret["ilosc_wody_do_etanolu"] = str(round(ilosc_wody,2))
+                ret["ilosc_etanolu"]=str(round(ilosc_etanolu,3))
+                ret["ilosc_wody_do_etanolu"] = str(round(ilosc_wody,3))
             else:
                 ret["ilosc_etanolu"] = 'to_little'
                 ret["ilosc_wody_do_etanolu"] = str(0)
@@ -206,7 +206,9 @@ def obliczeniaEtVisual(sklId):# Tworzy stringi z obliczeniami etanolowymi użyty
 
 
 def obliczeniaOlCacQs(last_skl,sklId,all_skl,alerty):#Oblicza masę masła kakowego w czopkach i globulkach (ref updateTable)
-    if last_skl.qs == 'on':
+    if last_skl.qs == 'on' and sprawdzanie_skl_bez_gramow(all_skl)==False:
+            last_skl.delete()#print(sprawdzanie_skl_bez_gramow())
+    elif last_skl.qs == 'on' and sprawdzanie_skl_bez_gramow(all_skl)==True:
         receptura = Receptura.objects.get(pk=last_skl.receptura_id.pk)
         a = 0.0
         for el in all_skl:
@@ -233,3 +235,8 @@ def obliczeniaOlCacQs(last_skl,sklId,all_skl,alerty):#Oblicza masę masła kakow
         last_skl.gramy = str(float(last_skl.gramy) + float(receptura.masa_docelowa_czop_glob))
         last_skl.save()
 
+def sprawdzanie_skl_bez_gramow(all_skl):
+    for obj in all_skl.order_by("-id")[1:]:
+        if obj.gramy == '':
+            return False
+    return True
