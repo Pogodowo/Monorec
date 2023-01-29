@@ -139,7 +139,7 @@ def to_pdf(request,pk):
     x=300
     y=650
     count=1
-    for i in Skladniki:
+    for n,i in enumerate(Skladniki):
 
         p.setFont('AbhayaLibre-Regular', 13)
         p.drawString(x, y, str(count)+')  '+i.skladnik)
@@ -184,6 +184,9 @@ def to_pdf(request,pk):
                     y = y - 10
                     p.drawString(x, y, param_string[50:])
             y=y-10
+        if n == len(Skladniki)-1:
+            y-=100
+
 
 
 
@@ -192,8 +195,14 @@ def to_pdf(request,pk):
         if  y<80:
             p.showPage()
             y=800
-    # if receptura.rodzaj == 'czopki_i_globulki' and jestOleum(pk):
-    #      drawCzop(x, y, pk, p)
+    if y < 200:
+        p.showPage()
+
+
+
+
+    if receptura.rodzaj == 'czopki_i_globulki' and jestOleum(pk):
+        drawCzop(x, y, pk, p)
 
     if jestEtanol(pk):
         drawEtanol(x,y,pk,p)
@@ -244,10 +253,31 @@ def drawEtanol(x,y,pk,p):
 
 
 def drawCzop(x,y,pk,p):
-    oblOl = obliczeniaOlCacVisual(pk)['obliczenia']
-    x = x - 200
-    y = y - 10
-    p.drawString(x, y, oblOl)
+    tableGLob=[['Składnik','Masa składnika (g)','Współczynnik wyparcia']]
+    width = 200
+    height = 300
+    name_bracket_size = 55
+
+    x = x - 280
+    y = y - 80
+    tableGLob.extend(obliczeniaOlCacVisual(pk)['dane'])
+    table = Table(tableGLob, colWidths=[name_bracket_size * mm])
+
+    ts = TableStyle(
+        [('GRID', (0, 0), (-1, -1), 0.5, colors.black),('FONT', (0, 0), (-1, 0), 'polishFont', 15), ('FONT', (0, 1), (-1, -1), 'polishFont', 13),
+         ('ALIGN', (0, 0), (-1, -1), 'CENTER'), ('VALIGN', (0, 0), (-1, -1), 'TOP')])
+    table.setStyle(ts)
+
+    table.wrapOn(p, width, height)
+    table.drawOn(p, x, y)
+    p.setFont('polishFont', 17)
+    y = y - 20
+    oblOl = split_string(obliczeniaOlCacVisual(pk)['obliczenia'][:-4],90,'+')
+    for i in oblOl:
+        p.drawString(x, y, i)
+        y=y-20
+
+
 
 def jestEtanol(pk):
 
@@ -266,3 +296,16 @@ def jestOleum(pk):
             return True
     return False
 
+#dzieli sztring po przekroczeniu zadanej długości
+def split_string(string, length, separator):
+    split_list = string.split(separator)
+    result = []
+    current_string = ""
+    for word in split_list:
+        if len(current_string) + len(word) + len(separator) <= length:
+            current_string += word + separator
+        else:
+            result.append(current_string)
+            current_string = word + separator
+    result.append(current_string[:-len(separator)])
+    return result

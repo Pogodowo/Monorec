@@ -1,11 +1,14 @@
 from django.db import models
+import datetime
+from django.utils import timezone
 
 from django.contrib.sessions.models import Session
-
+def get_time():
+    return datetime.datetime.now()
 
 class Receptura(models.Model):
     nazwa = models.CharField(max_length=20)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default = get_time)
     rodzaj = models.TextField( blank=True, null=True)
     czopki_czy_globulki = models.TextField( blank=True, null=True)
     ilosc_czop_glob = models.CharField(max_length=40, blank=True, null=True, default='')

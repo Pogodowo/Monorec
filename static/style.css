@@ -220,7 +220,7 @@ float:center;
 
 
 
-.button-card{/* pozycjonuje przycisku  w karce składnika po prawej stronie receptury(usuń,edytuj)*/
+.button-card{/* pozycjonuje przyciski  w karcie składnika po prawej stronie receptury(usuń,edytuj)*/
 float: right;
 margin: 2px;
 }
@@ -269,6 +269,14 @@ padding: 20px 0px 0px 0px;
 
 #wybiezSkladnikButton{
 margin: 5px;}
+
+
+#id-modal-content{/* kontroluje wygląd modala dotyczącego obliczeń masła kakowego*/
+position: absolute;
+  left: -50%;
+
+}
+
 
 .oblOlSkladniki td{
 
