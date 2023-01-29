@@ -1,10 +1,10 @@
 from django.db import models
-import datetime
+from datetime import datetime,timedelta
 from django.utils import timezone
 
 from django.contrib.sessions.models import Session
 def get_time():
-    return datetime.datetime.now()
+    return datetime.now()+timedelta(hours=1)
 
 class Receptura(models.Model):
     nazwa = models.CharField(max_length=20)
