@@ -184,8 +184,8 @@ def to_pdf(request,pk):
                     y = y - 10
                     p.drawString(x, y, param_string[50:])
             y=y-10
-        if n == len(Skladniki)-1:
-            y-=100
+        #if n == len(Skladniki)-1:
+            #y-=100
 
 
 
@@ -194,17 +194,24 @@ def to_pdf(request,pk):
         y=y-15
         if  y<80:
             p.showPage()
+
             y=800
-    if y < 200:
-        p.showPage()
+
 
 
 
 
     if receptura.rodzaj == 'czopki_i_globulki' and jestOleum(pk):
+        if y < 200:
+            p.showPage()
+            y = 750
         drawCzop(x, y, pk, p)
 
     if jestEtanol(pk):
+        if y < 200:
+            p.showPage()
+            y=800
+        p.setFont('AbhayaLibre-Regular', 13)
         drawEtanol(x,y,pk,p)
 
     p.showPage()
@@ -232,7 +239,7 @@ def drawEtanol(x,y,pk,p):
 
     licznik = obliczeniaEtVisual(pk)['licznik']
     y = y + 10
-    x = x + 200
+    x = x + 240
     p.drawString(x, y, licznik)
     p.line(x + 100, y - 7, x-40, y - 7)
 
@@ -248,7 +255,7 @@ def drawEtanol(x,y,pk,p):
 
     obl3 = obliczeniaEtVisual(pk)['obl3']
     y = y - 30
-    x = x -310
+    x = x -350
     p.drawString(x, y, obl3)
 
 
