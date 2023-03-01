@@ -68,6 +68,7 @@ def dodawanieRecJson(request): #dodaję recepturę do bazy danych
                 setattr(new_skl, key, value)
             new_skl.save()
             parametryDict['id']=new_skl.id
+        Receptura.objects.select_old().delete()#usuwa receptury starsze niż 7 dni
         return JsonResponse({'dict':parametryDict})
     return JsonResponse({'nie dodano skladnika': False, }, safe=False)
 

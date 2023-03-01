@@ -2,9 +2,15 @@ from django.db import models
 from datetime import datetime,timedelta
 from django.utils import timezone
 
+
 from django.contrib.sessions.models import Session
 def get_time():
     return datetime.now()+timedelta(hours=1)
+
+class RecepturaManager(models.Manager):
+    def select_old(self):
+        seven_days_ago = timezone.now() - timedelta(days=7)
+        return self.filter(date__lt=seven_days_ago)
 
 class Receptura(models.Model):
     nazwa = models.CharField(max_length=20)
@@ -17,9 +23,10 @@ class Receptura(models.Model):
     ilosc_masci = models.CharField(max_length=40, blank=True, null=True, default='')
     ilosc_gramow = models.CharField(max_length=40, blank=True, null=True, default='')
     session = models.ForeignKey(Session, null=True, on_delete=models.CASCADE)
+    objects = RecepturaManager()
 
     def __str__(self):
-        return self.rodzaj
+        return self.rodzaj +'       '+ str(self.date)[:21]
 
 
 class Skladnik(models.Model):
