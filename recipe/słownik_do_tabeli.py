@@ -1,4 +1,4 @@
-table_dict={'jednostka_z_recepty':'jednostka z recepty','ilosc_na_recepcie':'ilość podana na recepcie','gramy':'ilośc gramów',
+table_dict={'jednostka_z_recepty':'jednostka z recepty','ilosc_na_recepcie':'ilość podana na recepcie','gramy':'ilość gramów',
             'gestosc':'gęstość g/ml','producent':'producent','pozadane_stezenie':'pożądane stężenie etanolu v/v'
             ,'uzyte_stezenie':'użyte stężenie etanolu v/v','ilosc_etanolu':'ilość użytego etanolu',
             'czopki_czy_globulki':'rodzaj','ilosc_czop_glob':'ilość sztuk',
