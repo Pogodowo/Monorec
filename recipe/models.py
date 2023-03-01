@@ -73,3 +73,7 @@ class Skladnik(models.Model):
 
 
 
+class Licznik_receptur(models.Model):
+    ilosc_receptur=models.IntegerField(default=0)
+    def __str__(self):
+        return str(self.ilosc_receptur)

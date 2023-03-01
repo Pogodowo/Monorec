@@ -93,7 +93,7 @@ def PrzeliczanieWit(dodanySkladnik,to_updade,rodzaj,ilosc):
                 to_updade['gramy_czystej_vit_e'] = str(round(float(to_updade['ilosc_na_recepcie']) / 81, 3))
     if dodanySkladnik == 'Nystatyna':
         if to_updade['jednostka_z_recepty'] == 'jednostki':
-            to_updade['gramy']=str(round(float(to_updade['ilosc_na_recepcie']) / (float(to_updade['UI_w_mg'])*1000), 3))
+            to_updade['gramy']=str(round(float(to_updade['ilosc_na_recepcie']) / (float(to_updade['UI_w_mg'])*1000),4))
     if rodzaj == 'czopki_i_globulki':
         if 'krople' in to_updade:
             to_updade['krople']=str(round(float(to_updade['krople'])*float(ilosc),3))

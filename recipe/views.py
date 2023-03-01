@@ -6,7 +6,7 @@ import sys
 from django.core import serializers
 from .connon_fields import fields
 
-from .models import Receptura,Skladnik
+from .models import Receptura,Skladnik,Licznik_receptur
 from .lista_składników import data
 from .słownik_do_tabeli import table_dict
 from .obliczenia import Kasowanie_wody,Sumowanie_wody,Sumskl,get_super,Przeliczanie_etanolu,obliczeniaOlCacVisual,obliczeniaEtVisual,obliczeniaOlCacQs
@@ -37,6 +37,7 @@ def aktualnaRec(request):#wyświetla recepturę nad którą aktualnie pracuje u�
         return render(request,'404.html')
 
 def dodawanieRecJson(request): #dodaję recepturę do bazy danych
+    liczba_receptur=Licznik_receptur.objects.all().first()
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         ilosc_receptur=0
         nazwa = request.POST.get("nazwa")
@@ -56,6 +57,8 @@ def dodawanieRecJson(request): #dodaję recepturę do bazy danych
         new_skl=None
         if ilosc_receptur<2 :
             new_skl=Receptura.objects.create(rodzaj=rodzaj)
+            liczba_receptur.ilosc_receptur+=1
+            liczba_receptur.save()
         else:
             parametryDict['res']='przekroczona liczba'
 
