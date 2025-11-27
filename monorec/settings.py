@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'monorec.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'#to było potrzebne by tworzyć pk
 # Password validation
@@ -137,17 +137,17 @@ PASSWORD= os.getenv("PASSWORD")
 #     "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
 #     }
 
-DATABASES = {
-    "default": {
-        #"ENGINE": "django.db.backends.sqlite3",
-        #"NAME": BASE_DIR / "db.sqlite3",
-        "ENGINE": 'django.db.backends.postgresql',
-        "NAME": 'railway',
-        "USER": 'postgres',
-        "PASSWORD": PASSWORD,
-        "HOST": 'trolley.proxy.rlwy.net',
-        "PORT": '55743',
-
-    }
-}
+# DATABASES = {
+#     "default": {
+#         #"ENGINE": "django.db.backends.sqlite3",
+#         #"NAME": BASE_DIR / "db.sqlite3",
+#         "ENGINE": 'django.db.backends.postgresql',
+#         "NAME": 'railway',
+#         "USER": 'postgres',
+#         "PASSWORD": PASSWORD,
+#         "HOST": 'trolley.proxy.rlwy.net',
+#         "PORT": '55743',
+#
+#     }
+# }
 
