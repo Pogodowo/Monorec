@@ -195,14 +195,13 @@ def to_pdf(request,pk):
         if  y<80:
             p.showPage()
 
-            y=800
-
-
+            y=750
 
 
 
     if receptura.rodzaj == 'czopki_i_globulki' and jestOleum(pk):
         if y < 200:
+
             p.showPage()
             y = 750
         drawCzop(x, y, pk, p)
@@ -261,9 +260,9 @@ def drawEtanol(x,y,pk,p):
 
 def drawCzop(x,y,pk,p):
     tableGLob=[['Składnik','Masa składnika (g)','Współczynnik wyparcia']]
-    width = 200
+    width = 400
     height = 300
-    name_bracket_size = 55
+    name_bracket_size = 65
 
     x = x - 280
     y = y - 80

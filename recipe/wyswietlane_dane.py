@@ -13,7 +13,7 @@ slownik_wyswietlane_dane={'Witamina A':['gramy_roztworu','krople','jednostki','p
                             'Tlenek Cynku':['gramy'],'Olej Rycynowy':['gramy'],'Papaweryna':['gramy'],'Mentol':['gramy'],'Laktoza':['gramy'],'Kwas Salicylowy':['gramy'],
 
              'Nystatyna':['gramy','jednostki','UI_w_mg'],'3% roztwór kwasu borowego':['gramy','ilosc_kwasu_borowego_do_roztworu','woda_kwas_borowy'],
-             'Euceryna':['gramy'],'Gliceryna 86%':['gramy'],'Kwas Borowy':['gramy'], 'Lidokaina':['gramy'],'Woda Utleniona 3%':['gramy']
+             'Euceryna':['gramy'],'Gliceryna 86%':['gramy'],'Kwas Borowy':['gramy'], 'Lidokaina':['gramy'],'Woda Utleniona 3%':['gramy'],'Prednizolon':['gramy'],'I Dodatkowy składnik ze wsp.wyparcia 0.7':['gramy'],'II Dodatkowy składnik ze wsp.wyparcia 0.7':['gramy'],
 
                           }
 

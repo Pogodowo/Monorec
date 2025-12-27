@@ -3,7 +3,7 @@ var ingridients=['3% roztwór kwasu borowego', 'Anestezyna', 'Balsam Peruwiańsk
 'Bizmutu węglan zasadowy', 'Detreomycyna', 'Efedryna', 'Erytromycyna', 'Etanol', 'Euceryna', 'Gliceryna 86%', 'Hascobaza', 'Hydrokortyzon',
 'Ichtiol', 'Kwas Borowy','Kwas Salicylowy', 'Laktoza', 'Lanolina',  'Lidokaina','Maść Cholesterolowa', 'Mentol', 'Metronidazol', 'Mocznik', 'Neomycyna', 'Nystatyna',
 'Olej Rycynowy', 'Oleum Cacao', 'Oleum Menthae piperitae',
- 'Papaweryna', 'Prokaina', 'Rezorcyna', 'Tlenek Cynku', 'Wazelina biała', 'Wazelina żółta', 'Witamina A', 'Witamina E', 'Woda destylowana','Woda Utleniona 3%']
+ 'Papaweryna', 'Prednizolon','Prokaina', 'Rezorcyna', 'Tlenek Cynku', 'Wazelina biała', 'Wazelina żółta', 'Witamina A', 'Witamina E', 'Woda destylowana','Woda Utleniona 3%','I Dodatkowy składnik ze wsp.wyparcia 0.7','II Dodatkowy składnik ze wsp.wyparcia 0.7']
 const CloseXButton= document.getElementById('close-x')
 const CloseXButton2= document.getElementById('close-x2')
 function myFunction(){}

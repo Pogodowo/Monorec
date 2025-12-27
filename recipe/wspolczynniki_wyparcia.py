@@ -8,7 +8,7 @@ wspolczynniki_wyparcia={'3% roztwór kwasu borowego': 0.7, 'Anestezyna': 0.7, 'B
                         'Neomycyna': 0.7, 'Nystatyna': 0.77, 'Olej Rycynowy': 1, 'Oleum Cacao': 0.7,
                         'Oleum Menthae piperitae': 0.7, 'Papaweryna': 0.72, 'Prokaina': 0.8, 'Rezorcyna': 0.71,
                         'Tlenek Cynku': 0.2, 'Wazelina biała': 0.7, 'Wazelina żółta': 0.7, 'Witamina A': 0.7,
-                        'Woda destylowana': 0.7, 'Witamina E': 0.7,'Kwas Borowy':0.7,'Woda Utleniona 3%':0.7}
+                        'Woda destylowana': 0.7, 'Witamina E': 0.7,'Kwas Borowy':0.7,'Woda Utleniona 3%':0.7,'Prednizolon':0.7,'I Dodatkowy składnik ze wsp.wyparcia 0.7':0.7,'II Dodatkowy składnik ze wsp.wyparcia 0.7':0.7}
 
 
 ingridients=["Witamina A","witamina E","Hydrokortyzon","Metronidazol","Wazelina biała","Wazelina żółta","Mocznik",
@@ -16,4 +16,4 @@ ingridients=["Witamina A","witamina E","Hydrokortyzon","Metronidazol","Wazelina 
              'Detreomycyna','Rezorcyna','Euceryna','Lanolina','Gliceryna 86%','Maść Cholesterolowa','Balsam Peruwiański',
              'Ichtiol','Bizmutu węglan zasadowy','Bizmutu azotan zasadowy','Prokaina','Anestezyna','Hascobaza',
              "Neomycyna",'Efedryna','Erytromycyna','Tlenek Cynku',
-             'Olej Rycynowy','Papaweryna','Mentol','Laktoza','Kwas Salicylowy','Kwas Borowy']
+             'Olej Rycynowy','Papaweryna','Mentol','Laktoza','Kwas Salicylowy','Kwas Borowy','Prednizolon','I Dodatkowy składnik ze wsp.wyparcia 0.7','II Dodatkowy składnik ze wsp.wyparcia 0.7']

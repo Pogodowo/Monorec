@@ -36,7 +36,7 @@ const wyborSkladnikowDrop=document.getElementById("wybor-skl-dropdown" )
 
 updateTable()
 
-var ingridients=['3% roztwór kwas borowy', 'Anestezyna', 'Balsam Peruwiański', 'Bizmutu azotan zasadowy', 'Bizmutu węglan zasadowy', 'Detreomycyna', 'Efedryna', 'Erytromycna', 'Etanol', 'Euceryna', 'Gliceryna 86%', 'Hascobaza', 'Hydrokortyzon', 'Ichtiol', 'Kwas Borowy','Kwas Salicylowy', 'Laktoza', 'Lanolina', 'Maść Cholesterolowa', 'Mentol', 'Metronidazol', 'Mocznik', 'Neomycyna', 'Nystatyna', 'Olej Rycynowy', 'Oleum Cacao', 'Oleum Menthae piperitae', 'Papaweryna', 'Prokaina', 'Rezorcyna', 'Tlenek Cynku', 'Wazelina biała', 'Wazelina żółta', 'Witamina A', 'Witamina E', 'Woda destylowana']
+var ingridients=['3% roztwór kwas borowy', 'Anestezyna', 'Balsam Peruwiański', 'Bizmutu azotan zasadowy', 'Bizmutu węglan zasadowy', 'Detreomycyna', 'Efedryna', 'Erytromycna', 'Etanol', 'Euceryna', 'Gliceryna 86%', 'Hascobaza', 'Hydrokortyzon', 'Ichtiol', 'Kwas Borowy','Kwas Salicylowy', 'Laktoza', 'Lanolina', 'Maść Cholesterolowa', 'Mentol', 'Metronidazol', 'Mocznik', 'Neomycyna', 'Nystatyna', 'Olej Rycynowy', 'Oleum Cacao', 'Oleum Menthae piperitae', 'Papaweryna', 'Prednizolon','Prokaina', 'Rezorcyna', 'Tlenek Cynku', 'Wazelina biała', 'Wazelina żółta', 'Witamina A', 'Witamina E', 'Woda destylowana','I Dodatkowy składnik ze wsp.wyparcia 0.7','II Dodatkowy składnik ze wsp.wyparcia 0.7']
 /////////////////js do autouzupełniania////////////////////////////////////////////////////////////
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,

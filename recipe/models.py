@@ -32,7 +32,7 @@ class Receptura(models.Model):
 class Skladnik(models.Model):
     receptura_id = models.ForeignKey(Receptura, on_delete=models.CASCADE)
     producenci = (('1', 'Hasco 4500j.m./ml'), ('2', 'Medana 50000j.m./ml'), ('3', 'Hasco 0,3g/ml'))
-    skladnik = models.CharField(max_length=40)
+    skladnik = models.CharField(max_length=50)
     jednostka_z_recepty = models.CharField(max_length=40, blank=True, default='gramy')
     ilosc_na_recepcie = models.CharField(max_length=40, blank=True, null=True, default='0')
     gramy = models.CharField(max_length=40, default='0')

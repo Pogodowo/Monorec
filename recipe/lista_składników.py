@@ -38,7 +38,10 @@ data={'Witamina A':[['jednostka_z_recepty','gramy_roztworu','krople','jednostki'
       'Laktoza':['ilosc_na_recepcie','aa'],
       'Kwas Salicylowy':['ilosc_na_recepcie','aa'],
       'Kwas Borowy':['ilosc_na_recepcie','aa'],
-      'Woda Utleniona 3%':['ilosc_na_recepcie','aa','aa_ad','ad']
+      'Woda Utleniona 3%':['ilosc_na_recepcie','aa','aa_ad','ad'],
+      'Prednizolon':['ilosc_na_recepcie','aa'],
+      'I Dodatkowy składnik ze wsp.wyparcia 0.7':['ilosc_na_recepcie','aa'],
+      'II Dodatkowy składnik ze wsp.wyparcia 0.7': ['ilosc_na_recepcie', 'aa'],
       }
 
 #'''czy_powiekszyc_mase_oleum'''

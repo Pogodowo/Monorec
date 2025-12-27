@@ -38,6 +38,7 @@ def aktualnaRec(request):#wyświetla recepturę nad którą aktualnie pracuje u�
 
 def dodawanieRecJson(request): #dodaję recepturę do bazy danych
     liczba_receptur=Licznik_receptur.objects.all().first()
+    print('liczba receptur' , liczba_receptur)
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         ilosc_receptur=0
         nazwa = request.POST.get("nazwa")
