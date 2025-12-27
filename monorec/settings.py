@@ -26,7 +26,8 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 SECRET_KEY = str(os.environ.get('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG  =  str(os.environ.get('DEBUG'))
+#DEBUG  =  str(os.environ.get('DEBUG'))
+DEBUG= os.getenv("DEBUG")
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://*.railway.app','https://twoja-receptura.pl']
 
